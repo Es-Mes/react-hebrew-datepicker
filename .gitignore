@@ -35,3 +35,7 @@ logs
 # Personal guide files
 notes.md
 PUBLISHING_GUIDE.md
+
+# Demo files (for development only)
+demo*.html
+test*.html

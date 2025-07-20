@@ -7,6 +7,12 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 [![npm version](https://img.shields.io/npm/v/react-hebrew-datepicker.svg)](https://www.npmjs.com/package/react-hebrew-datepicker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Demo / דמו
+
+![Hebrew DatePicker Demo](screenshots/demo.gif)
+
+*Interactive Hebrew date picker with Gregorian conversion*
+
 ## Features / תכונות
 
 - 📅 **Hebrew Calendar Support** - Full Hebrew calendar with proper month and year calculations

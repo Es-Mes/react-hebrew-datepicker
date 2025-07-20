@@ -69,7 +69,7 @@ const CalendarPopup = ({
 
     const handleSelect = (day) => {
         if (!day) return;
-        const hdate = new HDate(day + 1, currentHDate.getMonth(), currentHDate.getFullYear());
+        const hdate = new HDate(day, currentHDate.getMonth(), currentHDate.getFullYear());
         const gregDate = hdate.greg();
         const iso = gregDate.toISOString().slice(0, 10);
         onChange?.({ target: { name, value: iso } });
@@ -103,14 +103,50 @@ const CalendarPopup = ({
                         <FaCaretDown />
                     </h3>
                     <div style={{ display: "flex", gap: 6 }}>
-                        <button className="arrowBtn" onClick={() => {
-                            setTransitionDirection("forward");
-                            setCurrentHDate(addHebrewMonths(currentHDate, 1));
-                        }} style={{ background: "transparent", border: "none", fontSize: 18, cursor: "pointer", color: "var(--bgSoft)" }}><IoArrowDown /><p className="tooltip-text next">חודש הבא</p></button>
-                        <button className="arrowBtn" onClick={() => {
-                            setTransitionDirection("backward");
-                            setCurrentHDate(addHebrewMonths(currentHDate, -1));
-                        }} style={{ background: "transparent", border: "none", fontSize: 18, cursor: "pointer", color: "var(--bgSoft)" }}><IoArrowUp /><p className="tooltip-text last">חודש קודם</p></button>
+                        <button
+                            className="arrowBtn icon-tooltip"
+                            onClick={() => {
+                                setTransitionDirection("forward");
+                                setCurrentHDate(addHebrewMonths(currentHDate, 1));
+                            }}
+                            style={{
+                                background: "transparent",
+                                border: "none",
+                                fontSize: 18,
+                                cursor: "pointer",
+                                color: "var(--bgSoft)",
+                                position: "relative",
+                                display: "inline-block",
+                                padding: "8px"
+                            }}
+                        >
+                            <IoArrowDown />
+                            <span className="tooltip-text">
+                                {hebrewMonths[addHebrewMonths(currentHDate, 1).getMonth() - 1]}
+                            </span>
+                        </button>
+                        <button
+                            className="arrowBtn icon-tooltip"
+                            onClick={() => {
+                                setTransitionDirection("backward");
+                                setCurrentHDate(addHebrewMonths(currentHDate, -1));
+                            }}
+                            style={{
+                                background: "transparent",
+                                border: "none",
+                                fontSize: 18,
+                                cursor: "pointer",
+                                color: "var(--bgSoft)",
+                                position: "relative",
+                                display: "inline-block",
+                                padding: "8px"
+                            }}
+                        >
+                            <IoArrowUp />
+                            <span className="tooltip-text">
+                                {hebrewMonths[addHebrewMonths(currentHDate, -1).getMonth() - 1]}
+                            </span>
+                        </button>
                     </div>
                 </div>
 

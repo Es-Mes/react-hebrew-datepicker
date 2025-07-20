@@ -81,5 +81,47 @@
 .arrowBtn:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
+}
 
+/* Tooltip Styles */
+.icon-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 10;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.tooltip-text::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
+
+.icon-tooltip:hover .tooltip-text {
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
