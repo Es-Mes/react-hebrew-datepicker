@@ -1,0 +1,75 @@
+{
+    "name": "react-hebrew-datepicker",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "A beautiful and functional Hebrew date picker component for React with Gregorian conversion support",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "rollup -c",
+        "dev": "rollup -c -w",
+        "prepare": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "react",
+        "hebrew",
+        "date",
+        "picker",
+        "calendar",
+        "jewish",
+        "hebrew-calendar",
+        "datepicker",
+        "component",
+        "ui",
+        "israel",
+        "hebrew-date"
+    ],
+    "author": {
+        "name": "Ester Leah Mesner",
+        "email": "esterleah085@gmail.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Es-Mes/react-hebrew-datepicker.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Es-Mes/react-hebrew-datepicker/issues"
+    },
+    "homepage": "https://github.com/Es-Mes/react-hebrew-datepicker#readme",
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    },
+    "dependencies": {
+        "@hebcal/core": "^5.4.0",
+        "react-icons": "^4.12.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.23.0",
+        "@babel/preset-env": "^7.23.0",
+        "@babel/preset-react": "^7.23.0",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0",
+        "rollup": "^4.9.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-postcss": "^4.0.2",
+        "typescript": "^5.3.0"
+    },
+    "engines": {
+        "node": ">=14.0.0",
+        "npm": ">=6.0.0"
+    }
+}

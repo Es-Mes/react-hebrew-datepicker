@@ -1,0 +1,85 @@
+:root {
+  --bgSoft: #4da6ff;
+}
+
+.calendar-popup {
+  z-index: 9999 !important;
+  /* גבוה יותר מכל modal רגיל */
+}
+
+.date-picker-day {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #444;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.date-picker-day:hover {
+  border: 1.5px solid var(--bgSoft);
+}
+
+.date-picker-day.selected {
+  background-color: var(--bgSoft);
+  color: white;
+}
+
+.month-year-picker div {
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.month-year-picker div:hover {
+  background-color: var(--bgSoft);
+  color: white;
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-left {
+  animation: slideLeft 0.4s ease-in-out;
+}
+
+.slide-right {
+  animation: slideRight 0.4s ease-in-out;
+}
+
+.arrowBtn .next {
+  top: 15%;
+  right: 80% !important;
+}
+
+.arrowBtn .last {
+  top: 15%;
+  right: 90% !important;
+}
+
+.arrowBtn:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+
+}

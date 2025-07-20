@@ -1,0 +1,53 @@
+# Ignore source files - only include built files
+src/
+*.ts
+*.tsx
+
+# Ignore development files
+.git/
+.gitignore
+rollup.config.js
+tsconfig.json
+.babelrc
+.eslintrc
+.prettierrc
+
+# Ignore test files
+**/*.test.js
+**/*.test.ts
+**/*.test.tsx
+__tests__/
+test/
+tests/
+
+# Ignore documentation source
+docs/
+.github/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore coverage reports
+coverage/
+.nyc_output/
+
+# Ignore examples and demos
+examples/
+demo/
+
+# Development guides - not needed in published package
+PUBLISHING_GUIDE.md
+
+# Optional: Uncomment to exclude quick start guide too
+# QUICK_START.md
