@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { IoCalendarOutline } from "react-icons/io5";
 import { HDate } from "@hebcal/core";
+import './HebrewDatePicker.css';
 import CalendarPopup from "./CalendarPopup";
 
 const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר תאריך", usePortal = false }) => {
@@ -58,7 +59,7 @@ const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר ת�
           name={name}
           readOnly
           required={required}
-          value={value ? formatHebrewDate(new HDate(new Date(value))) : ""}
+          value={value ? formatHebrewDate(selectedHDate) : ""}
           placeholder="בחר תאריך עברי"
           style={{ padding: 10, borderRadius: 5, border: "1px solid #ccc", width: "100%", backgroundColor: "white", color: "#444", fontWeight: "bold", cursor: "default" }}
           onClick={() => setShowCalendar((v) => !v)}
@@ -66,7 +67,7 @@ const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר ת�
         <button
           onClick={() => setShowCalendar((v) => !v)}
           type="button"
-          style={{ cursor: "pointer", padding: 8, color: "#4da6ff", border: "none", borderRadius: 6, background: "none", fontSize: 22 }}
+          style={{ cursor: "pointer", padding: 8, color: "var(--bgSoft)", border: "none", borderRadius: 6, background: "none", fontSize: 22 }}
         ><IoCalendarOutline /></button>
       </div>
 
@@ -132,7 +133,13 @@ const hebrewNumber = (num) => {
 
 const formatHebrewDate = (hdate) => {
   try {
-    return hdate.toString();
+    const day = hdate.getDate();
+    let monthIndex = hdate.getMonth() - 1;
+    if (monthIndex === 11 && !hdate.isLeapYear()) monthIndex = 11;
+    else if (monthIndex === 12 && !hdate.isLeapYear()) monthIndex = 11;
+    const month = hebrewMonths[monthIndex] || "";
+    const year = hdate.renderGematriya().split(" ").pop();
+    return `${hebrewNumber(day)} ${month} ${year}`;
   } catch (e) {
     console.error('Error formatting Hebrew date:', e);
     return 'שגיאה בתאריך';

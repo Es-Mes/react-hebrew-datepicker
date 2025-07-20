@@ -122,7 +122,7 @@ const CalendarPopup = ({
                         >
                             <IoArrowDown />
                             <span className="tooltip-text">
-                                {hebrewMonths[addHebrewMonths(currentHDate, 1).getMonth() - 1]}
+                                חודש הבא
                             </span>
                         </button>
                         <button
@@ -144,7 +144,7 @@ const CalendarPopup = ({
                         >
                             <IoArrowUp />
                             <span className="tooltip-text">
-                                {hebrewMonths[addHebrewMonths(currentHDate, -1).getMonth() - 1]}
+                                חודש קודם
                             </span>
                         </button>
                     </div>

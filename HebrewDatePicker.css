@@ -19,7 +19,7 @@
 }
 
 .date-picker-day:hover {
-  border: 1.5px solid var(--bgSoft);
+  border: 1.2px solid var(--bgSoft);
 }
 
 .date-picker-day.selected {
