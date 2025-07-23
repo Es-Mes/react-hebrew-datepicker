@@ -12,7 +12,7 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 
 ## Demo / דמו
 
-![Hebrew DatePicker Demo](screenshots/demo.gif)
+![Hebrew DatePicker Demo](screenshots/Hebrew%20DatePicker.gif)
 
 *Interactive Hebrew date picker with Gregorian conversion*
 

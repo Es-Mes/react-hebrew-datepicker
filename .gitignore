@@ -39,3 +39,8 @@ PUBLISHING_GUIDE.md
 # Demo files (for development only)
 demo*.html
 test*.html
+
+# Marketing and promotion content
+article-dev-to.md
+post-*.md
+email-template.md
