@@ -5,7 +5,10 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 קומפוננטה יפה ופונקציונלית לבחירת תאריכים עבריים ב-React עם תמיכה מלאה בלוח העברי והמרה ללוח הגרגוריאני.
 
 [![npm version](https://img.shields.io/npm/v/react-hebrew-datepicker.svg)](https://www.npmjs.com/package/react-hebrew-datepicker)
+[![npm downloads](https://img.shields.io/npm/dm/react-hebrew-datepicker.svg)](https://www.npmjs.com/package/react-hebrew-datepicker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/react-hebrew-datepicker)](https://bundlephobia.com/package/react-hebrew-datepicker)
+[![GitHub stars](https://img.shields.io/github/stars/Es-Mes/react-hebrew-datepicker.svg?style=social&label=Star)](https://github.com/Es-Mes/react-hebrew-datepicker)
 
 ## Demo / דמו
 
@@ -229,6 +232,12 @@ npm run build
 MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Changelog / יומן שינויים
+
+### v1.0.5
+- Fixed calendar popup positioning for better centering
+- Improved year picker UX - now opens at current year instead of start of list
+- Enhanced calendar positioning to be more user-friendly
+- Better responsive behavior for calendar popup
 
 ### v1.0.4
 - Added support for uncontrolled mode with `defaultValue` prop

@@ -1,5 +1,5 @@
 // CalendarPopup.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IoArrowUp, IoArrowDown } from "react-icons/io5";
 import { FaCaretDown } from "react-icons/fa";
 import { HDate } from "@hebcal/core";
@@ -58,6 +58,19 @@ const CalendarPopup = ({
     setTransitionDirection,
     name
 }) => {
+    const yearScrollRef = useRef(null);
+
+    // Auto-scroll to current year when year picker opens
+    useEffect(() => {
+        if (showMonthYearPicker && yearScrollRef.current) {
+            const currentYearElement = yearScrollRef.current.querySelector(`[data-year="${currentHDate.getFullYear()}"]`);
+            if (currentYearElement) {
+                setTimeout(() => {
+                    currentYearElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                }, 50);
+            }
+        }
+    }, [showMonthYearPicker, currentHDate]);
 
     const firstOfMonth = new HDate(1, currentHDate.getMonth(), currentHDate.getFullYear());
     const firstWeekday = firstOfMonth.getDay();
@@ -172,13 +185,18 @@ const CalendarPopup = ({
                                 </div>
                             ))}
                         </div>
-                        <div style={{ maxHeight: 150, overflowY: "auto", direction: "rtl" }}>
-                            {Array.from({ length: 200 }, (_, i) => {
-                                const year = 5700 + i;
+                        <div 
+                            ref={yearScrollRef}
+                            style={{ maxHeight: 150, overflowY: "auto", direction: "rtl" }}
+                        >
+                            {Array.from({ length: 60 }, (_, i) => { // 60 years total
+                                const currentYear = currentHDate.getFullYear();
+                                const year = currentYear - 30 + i; // 30 years before to 30 years after
                                 const label = new HDate(1, 1, year).renderGematriya().split(" ").pop();
                                 return (
                                     <div
                                         key={year}
+                                        data-year={year}
                                         onClick={() => {
                                             setCurrentHDate(new HDate(1, currentHDate.getMonth(), year));
                                             setShowMonthYearPicker(false);

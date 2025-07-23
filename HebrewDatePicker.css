@@ -91,7 +91,6 @@
 }
 
 .tooltip-text {
-  display: none;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s;
@@ -107,6 +106,7 @@
   z-index: 10;
   border-radius: 4px;
   margin-top: 5px;
+  pointer-events: none;
 }
 
 .tooltip-text::before {
@@ -120,8 +120,26 @@
   border-color: transparent transparent #333 transparent;
 }
 
-.icon-tooltip:hover .tooltip-text {
-  display: block;
-  visibility: visible;
-  opacity: 1;
+/* Desktop - show tooltip on hover */
+@media (hover: hover) and (pointer: fine) {
+  .icon-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* Mobile/Touch devices - show tooltip for longer on tap */
+@media (hover: none) and (pointer: coarse) {
+  .icon-tooltip:active .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Optional: Always show tooltips on mobile for better UX */
+  .tooltip-text {
+    visibility: visible;
+    opacity: 0.7;
+    font-size: 10px;
+    padding: 2px 4px;
+  }
 }

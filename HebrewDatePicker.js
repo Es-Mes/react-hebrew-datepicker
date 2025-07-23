@@ -10,7 +10,7 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue || '');
   const currentValue = isControlled ? value : internalValue;
-  
+
   const showDate = currentValue ? new Date(currentValue) : new Date();
   const selectedHDate = new HDate(showDate);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -39,12 +39,12 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
   // Internal change handler
   const handleDateChange = (event) => {
     const newValue = event.target.value;
-    
+
     // Update internal state if uncontrolled
     if (!isControlled) {
       setInternalValue(newValue);
     }
-    
+
     // Call external onChange if provided
     if (onChange) {
       onChange(event);
@@ -65,9 +65,12 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
   useEffect(() => {
     if (showCalendar && inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();
+      const calendarWidth = 320; // Width defined in CalendarPopup
+      const leftPosition = rect.left + window.scrollX + (rect.width - calendarWidth) / 2;
+      
       setCalendarPos({
         top: rect.bottom + window.scrollY + 8,
-        left: rect.left + window.scrollX,
+        left: Math.max(10, leftPosition), // Ensure it doesn't go off-screen
       });
     }
   }, [showCalendar]);
