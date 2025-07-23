@@ -69,7 +69,7 @@ const CalendarPopup = ({
 
     const handleSelect = (day) => {
         if (!day) return;
-        const hdate = new HDate(day, currentHDate.getMonth(), currentHDate.getFullYear());
+        const hdate = new HDate(day+1, currentHDate.getMonth(), currentHDate.getFullYear());
         const gregDate = hdate.greg();
         const iso = gregDate.toISOString().slice(0, 10);
         onChange?.({ target: { name, value: iso } });
@@ -121,7 +121,7 @@ const CalendarPopup = ({
                             }}
                         >
                             <IoArrowDown />
-                            <span className="tooltip-text">
+                            <span className="tooltip-text next">
                                 חודש הבא
                             </span>
                         </button>
@@ -143,7 +143,7 @@ const CalendarPopup = ({
                             }}
                         >
                             <IoArrowUp />
-                            <span className="tooltip-text">
+                            <span className="tooltip-text prev">
                                 חודש קודם
                             </span>
                         </button>

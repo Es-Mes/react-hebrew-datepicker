@@ -1,6 +1,6 @@
 {
     "name": "react-hebrew-datepicker",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "type": "module",
     "description": "A beautiful and functional Hebrew date picker component for React with Gregorian conversion support",
     "main": "dist/index.js",

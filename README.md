@@ -34,7 +34,7 @@ yarn add react-hebrew-datepicker
 
 ## Usage / שימוש
 
-### Basic Example / דוגמה בסיסית
+### Basic Example (Controlled) / דוגמה בסיסית (מבוקרת)
 
 ```jsx
 import React, { useState } from 'react';
@@ -53,6 +53,33 @@ function App() {
       <HebrewDatePicker
         name="hebrewDate"
         value={selectedDate}
+        onChange={handleDateChange}
+        label="בחר תאריך עברי"
+        required
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Simple Example (Uncontrolled) / דוגמה פשוטה (לא מבוקרת)
+
+```jsx
+import React from 'react';
+import HebrewDatePicker from 'react-hebrew-datepicker';
+
+function App() {
+  const handleDateChange = (event) => {
+    console.log('Selected date:', event.target.value); // ISO format: YYYY-MM-DD
+  };
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <HebrewDatePicker
+        name="hebrewDate"
+        defaultValue="2024-01-01"
         onChange={handleDateChange}
         label="בחר תאריך עברי"
         required
@@ -132,11 +159,25 @@ function UserForm() {
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `name` | `string` | **required** | The name attribute for the input field |
-| `value` | `string` | `undefined` | Current value as ISO date string (YYYY-MM-DD) |
+| `value` | `string` | `undefined` | Current value as ISO date string (YYYY-MM-DD) - for controlled mode |
+| `defaultValue` | `string` | `undefined` | Initial value as ISO date string (YYYY-MM-DD) - for uncontrolled mode |
 | `onChange` | `function` | `undefined` | Callback when date changes: `(event) => void` |
 | `required` | `boolean` | `false` | Whether the field is required |
 | `label` | `string` | `"בחר תאריך"` | Label text for the input field |
 | `usePortal` | `boolean` | `false` | Render calendar popup using React Portal |
+
+### Usage Modes / מצבי שימוש
+
+**Controlled Mode** - You manage the state externally:
+```jsx
+const [date, setDate] = useState('');
+<HebrewDatePicker value={date} onChange={(e) => setDate(e.target.value)} />
+```
+
+**Uncontrolled Mode** - Component manages its own state:
+```jsx
+<HebrewDatePicker defaultValue="2024-01-01" onChange={(e) => console.log(e.target.value)} />
+```
 
 ### CSS Custom Properties
 
@@ -189,10 +230,28 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Changelog / יומן שינויים
 
+### v1.0.4
+- Added support for uncontrolled mode with `defaultValue` prop
+- Component now manages internal state when `value` is not provided
+- Improved flexibility - supports both controlled and uncontrolled usage patterns
+- Enhanced user experience - date picker works immediately without external state management
+
+### v1.0.3
+- Enhanced tooltips for calendar navigation ("Previous Month", "Next Month")
+- Improved CSS styling with custom CSS variables support
+- Better user experience and accessibility
+
+### v1.0.2
+- Fixed Hebrew date formatting display
+- Improved build configuration and bundle optimization
+
+### v1.0.1
+- Initial bug fixes and improvements
+
 ### v1.0.0
 - Initial release
 - Hebrew calendar support
-- Gregorian conversion
+- Gregorian conversion  
 - TypeScript definitions
 - Portal support
 - RTL layout

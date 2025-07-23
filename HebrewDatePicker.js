@@ -5,8 +5,13 @@ import { HDate } from "@hebcal/core";
 import './HebrewDatePicker.css';
 import CalendarPopup from "./CalendarPopup";
 
-const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר תאריך", usePortal = false }) => {
-  const showDate = value ? new Date(value) : new Date();
+const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label = "בחר תאריך", usePortal = false }) => {
+  // Support both controlled and uncontrolled modes
+  const isControlled = value !== undefined;
+  const [internalValue, setInternalValue] = useState(defaultValue || '');
+  const currentValue = isControlled ? value : internalValue;
+  
+  const showDate = currentValue ? new Date(currentValue) : new Date();
   const selectedHDate = new HDate(showDate);
   const [showCalendar, setShowCalendar] = useState(false);
   const [currentHDate, setCurrentHDate] = useState(selectedHDate);
@@ -18,14 +23,33 @@ const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר ת�
 
   const [transitionDirection, setTransitionDirection] = useState("forward");
 
-  // Update selectedHDate when value changes
+  // Update selectedHDate when value changes (for controlled mode)
   useEffect(() => {
-    if (value) {
+    if (isControlled && value) {
       const newDate = new Date(value);
       const newHDate = new HDate(newDate);
       setCurrentHDate(newHDate);
+    } else if (!isControlled && internalValue) {
+      const newDate = new Date(internalValue);
+      const newHDate = new HDate(newDate);
+      setCurrentHDate(newHDate);
     }
-  }, [value]);
+  }, [value, internalValue, isControlled]);
+
+  // Internal change handler
+  const handleDateChange = (event) => {
+    const newValue = event.target.value;
+    
+    // Update internal state if uncontrolled
+    if (!isControlled) {
+      setInternalValue(newValue);
+    }
+    
+    // Call external onChange if provided
+    if (onChange) {
+      onChange(event);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -59,7 +83,7 @@ const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר ת�
           name={name}
           readOnly
           required={required}
-          value={value ? formatHebrewDate(selectedHDate) : ""}
+          value={currentValue ? formatHebrewDate(selectedHDate) : ""}
           placeholder="בחר תאריך עברי"
           style={{ padding: 10, borderRadius: 5, border: "1px solid #ccc", width: "100%", backgroundColor: "white", color: "#444", fontWeight: "bold", cursor: "default" }}
           onClick={() => setShowCalendar((v) => !v)}
@@ -79,7 +103,7 @@ const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר ת�
               calendarPos={calendarPos}
               currentHDate={currentHDate}
               selectedHDate={selectedHDate}
-              onChange={onChange}
+              onChange={handleDateChange}
               setShowCalendar={setShowCalendar}
               setCurrentHDate={setCurrentHDate}
               setShowMonthYearPicker={setShowMonthYearPicker}
@@ -96,7 +120,7 @@ const HebrewDatePicker = ({ name, value, onChange, required, label = "בחר ת�
             calendarPos={{ top: "calc(100% + 8px)", left: 0 }}
             currentHDate={currentHDate}
             selectedHDate={selectedHDate}
-            onChange={onChange}
+            onChange={handleDateChange}
             setShowCalendar={setShowCalendar}
             setCurrentHDate={setCurrentHDate}
             setShowMonthYearPicker={setShowMonthYearPicker}
