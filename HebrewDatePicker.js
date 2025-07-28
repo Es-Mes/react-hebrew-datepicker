@@ -5,7 +5,7 @@ import { HDate } from "@hebcal/core";
 import './HebrewDatePicker.css';
 import CalendarPopup from "./CalendarPopup";
 
-const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label = "בחר תאריך", usePortal = false }) => {
+const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label = "בחר תאריך", usePortal = false, dir = "rtl" }) => {
   // Support both controlled and uncontrolled modes
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue || '');
@@ -76,7 +76,7 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
   }, [showCalendar]);
 
   return (
-    <div style={{ position: "relative", maxWidth: 360, margin: "auto", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ position: "relative", maxWidth: 360, margin: "auto", fontFamily: "Arial, sans-serif" }} dir={dir}>
       <label htmlFor={name} style={{ display: "block", marginBottom: 6 }}>{label}{required && " *"}</label>
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <input

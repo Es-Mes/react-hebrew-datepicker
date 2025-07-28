@@ -7,11 +7,15 @@
 .date-picker-day {
   padding: 8px;
   border-radius: 8px;
-  border: 1px solid transparent;
-  background-color: white;
+  border: 2px solid transparent;
+  background-color: #f5f6fa;
   color: #444;
   cursor: pointer;
   font-size: 14px;
+  min-width: 36px;
+  min-height: 36px;
+  box-sizing: border-box;
+  margin: 0;
   /* transition: border 0.2s, background 0.2s, color 0.2s; */
 }
 
@@ -97,12 +101,17 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-55%);
+  /* was -50%, shift a bit more for Hebrew */
   background-color: #4da6ff;
   color: white;
-  padding: 4px 8px;
-  white-space: nowrap;
-  font-size: 12px;
+  padding: 4px 12px;
+  /* wider */
+  min-width: 70px;
+  /* ensure enough width for Hebrew */
+  white-space: normal;
+  /* allow wrapping if needed */
+  font-size: 13px;
   z-index: 10;
   border-radius: 4px;
   margin-top: 5px;

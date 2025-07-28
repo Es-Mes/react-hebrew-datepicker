@@ -168,6 +168,7 @@ function UserForm() {
 | `required` | `boolean` | `false` | Whether the field is required |
 | `label` | `string` | `"בחר תאריך"` | Label text for the input field |
 | `usePortal` | `boolean` | `false` | Render calendar popup using React Portal |
+| `dir` | `string` | `"rtl"` | Text direction for the component (`"rtl"` or `"ltr"`). Controls only the date picker, not the whole page. |
 
 ### Usage Modes / מצבי שימוש
 
@@ -306,3 +307,23 @@ import 'react-hebrew-datepicker/dist/styles.css';
 ```
 
 If you do not import this file, the date picker will render without styles.
+
+---
+
+### RTL/LTR Direction Control
+
+By default, the date picker renders in right-to-left (`rtl`) mode for Hebrew. You can override this for a specific picker by passing the `dir` prop:
+
+```jsx
+<HebrewDatePicker dir="ltr" />
+```
+
+This will affect only the component, not your whole page.
+
+---
+
+### Basic Styling and Fallback
+
+The day buttons have a minimal inline style (minWidth, minHeight, background color) to ensure they always look good and don't "escape" their grid, even if the CSS is not loaded. For best appearance, always import the CSS as shown below.
+
+---

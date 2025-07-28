@@ -237,6 +237,20 @@ const CalendarPopup = ({
                                 type="button"
                                 onClick={() => handleSelect(day)}
                                 className={`date-picker-day${isSelected ? " selected" : ""}`}
+                                style={{
+                                    minWidth: 36,
+                                    minHeight: 36,
+                                    backgroundColor: isSelected ? '#4da6ff' : '#f5f6fa', // fallback, matches CSS if selected
+                                    color: isSelected ? '#fff' : '#444',
+                                    border: isSelected ? '2px solid #4da6ff' : '2px solid transparent',
+                                    borderRadius: 8,
+                                    fontSize: 14,
+                                    cursor: 'pointer',
+                                    padding: 8,
+                                    transition: 'border .2s,background .2s,color .2s',
+                                    boxSizing: 'border-box',
+                                    margin: 0
+                                }}
                             >
                                 {hebrewNumber(day)}
                             </button>
