@@ -67,7 +67,7 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
       const rect = inputRef.current.getBoundingClientRect();
       const calendarWidth = 320; // Width defined in CalendarPopup
       const leftPosition = rect.left + window.scrollX + (rect.width - calendarWidth) / 2;
-      
+
       setCalendarPos({
         top: rect.bottom + window.scrollY + 8,
         left: Math.max(10, leftPosition), // Ensure it doesn't go off-screen
@@ -94,7 +94,7 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
         <button
           onClick={() => setShowCalendar((v) => !v)}
           type="button"
-          style={{ cursor: "pointer", padding: 8, color: "var(--bgSoft)", border: "none", borderRadius: 6, background: "none", fontSize: 22 }}
+          style={{ cursor: "pointer", padding: 8, color: "#4da6ff", border: "none", borderRadius: 6, background: "none", fontSize: 22 }}
         ><IoCalendarOutline /></button>
       </div>
 

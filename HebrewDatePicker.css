@@ -19,11 +19,11 @@
 }
 
 .date-picker-day:hover {
-  border: 1.2px solid var(--bgSoft);
+  border: 1.2px solid var(--bgSoft, #4da6ff);
 }
 
 .date-picker-day.selected {
-  background-color: var(--bgSoft);
+  background-color: var(--bgSoft, #4da6ff);
   color: white;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .month-year-picker div:hover {
-  background-color: var(--bgSoft);
+  background-color: var(--bgSoft, #4da6ff);
   color: white;
 }
 
@@ -98,7 +98,7 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #333;
+  background-color: var(--bgSoft, #4da6ff);
   color: white;
   padding: 4px 8px;
   white-space: nowrap;

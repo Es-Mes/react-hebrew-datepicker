@@ -109,7 +109,7 @@ const CalendarPopup = ({
             >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, borderBottom: "1px solid #eee" }}>
                     <h3
-                        style={{ margin: 0, fontSize: 16, color: "var(--bgSoft)", cursor: "pointer" }}
+                        style={{ margin: 0, fontSize: 16, color: "#4da6ff", cursor: "pointer" }}
                         onClick={() => setShowMonthYearPicker((prev) => !prev)}
                     >
                         {hebrewMonths[currentHDate.getMonth() - 1]} {new HDate(1, currentHDate.getMonth(), currentHDate.getFullYear()).renderGematriya().split(" ").pop()}
@@ -128,7 +128,7 @@ const CalendarPopup = ({
                                 border: "none",
                                 fontSize: 18,
                                 cursor: "pointer",
-                                color: "var(--bgSoft)",
+                                color: "#4da6ff",
                                 position: "relative",
                                 display: "inline-block",
                                 padding: "8px"
@@ -151,7 +151,7 @@ const CalendarPopup = ({
                                 border: "none",
                                 fontSize: 18,
                                 cursor: "pointer",
-                                color: "var(--bgSoft)",
+                                color: "#4da6ff",
                                 position: "relative",
                                 display: "inline-block",
                                 padding: "8px"
@@ -179,7 +179,7 @@ const CalendarPopup = ({
                                         padding: 6,
                                         cursor: "pointer",
                                         color: currentHDate.getMonth() === i + 1 ? "white" : "#333",
-                                        backgroundColor: currentHDate.getMonth() === i + 1 ? "var(--bgSoft)" : "transparent",
+                                        backgroundColor: currentHDate.getMonth() === i + 1 ? "#4da6ff" : "transparent",
                                         borderRadius: 6
                                     }}
                                 >
@@ -207,7 +207,7 @@ const CalendarPopup = ({
                                             padding: 6,
                                             cursor: "pointer",
                                             color: currentHDate.getFullYear() === year ? "white" : "#333",
-                                            backgroundColor: currentHDate.getFullYear() === year ? "var(--bgSoft)" : "transparent",
+                                            backgroundColor: currentHDate.getFullYear() === year ? "#4da6ff" : "transparent",
                                             borderRadius: 6
                                         }}
                                     >
@@ -223,7 +223,7 @@ const CalendarPopup = ({
                     style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6, textAlign: "center" }}>
 
                     {daysOfWeek.map((d) => (
-                        <div key={d} style={{ fontWeight: "bold", color: "var(--bgSoft)" }}>{d}</div>
+                        <div key={d} style={{ fontWeight: "bold", color: "#4da6ff" }}>{d}</div>
                     ))}
                     {daysArray.map((day, i) => {
                         if (!day) return <div key={i} />;
@@ -258,7 +258,7 @@ const CalendarPopup = ({
 
                         style={{
                             fontSize: 14,
-                            color: "var(--bgSoft)",
+                            color: "#4da6ff",
                             background: "none",
                             border: "none",
                             cursor: "pointer",
@@ -276,7 +276,7 @@ const CalendarPopup = ({
                         }}
                         style={{
                             fontSize: 14,
-                            color: "var(--bgSoft)",
+                            color: "#4da6ff",
                             background: "none",
                             border: "none",
                             cursor: "pointer",
