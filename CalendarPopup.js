@@ -129,8 +129,8 @@ const CalendarPopup = ({
                                 fontSize: 18,
                                 cursor: "pointer",
                                 color: "#4da6ff",
-                                position: "relative",
-                                display: "inline-block",
+                                // position: "relative",
+                                // display: "inline-block",
                                 padding: "8px"
                             }}
                         >
@@ -152,8 +152,8 @@ const CalendarPopup = ({
                                 fontSize: 18,
                                 cursor: "pointer",
                                 color: "#4da6ff",
-                                position: "relative",
-                                display: "inline-block",
+                                // position: "relative",
+                                // display: "inline-block",
                                 padding: "8px"
                             }}
                         >

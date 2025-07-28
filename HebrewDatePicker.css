@@ -7,24 +7,23 @@
 .date-picker-day {
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   background-color: white;
   color: #444;
   cursor: pointer;
   font-size: 14px;
-  transition: border 0.2s, background 0.2s, color 0.2s;
+  /* transition: border 0.2s, background 0.2s, color 0.2s; */
 }
 
 
 .date-picker-day:hover {
-  border: 2px solid #4da6ff;
+  border: 1.5px solid #4da6ff;
 }
 
 
 .date-picker-day.selected {
   background-color: #4da6ff;
   color: white;
-  border: 2px solid #4da6ff;
 }
 
 .month-year-picker div {
@@ -84,13 +83,14 @@
 }
 
 /* Tooltip Styles */
-.icon-tooltip {
+/* .icon-tooltip {
   position: relative;
   display: inline-block;
   cursor: pointer;
-}
+} */
 
 .tooltip-text {
+  display: none;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s;
@@ -109,7 +109,7 @@
   pointer-events: none;
 }
 
-.tooltip-text::before {
+/* .tooltip-text::before {
   content: "";
   position: absolute;
   bottom: 100%;
@@ -118,7 +118,7 @@
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent #333 transparent;
-}
+} */
 
 @media (hover: hover) and (pointer: fine) {
   .icon-tooltip:hover .tooltip-text {
