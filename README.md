@@ -233,6 +233,15 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Changelog / יומן שינויים
 
+### v1.0.7
+- Fixed: Calendar navigation and day buttons no longer trigger form submit (added type="button" to all calendar buttons)
+
+### v1.0.6
+- Fixed calendar popup positioning for better centering
+- Improved year picker UX - now opens at current year instead of start of list
+- Enhanced calendar positioning to be more user-friendly
+- Better responsive behavior for calendar popup
+
 ### v1.0.5
 - Fixed calendar popup positioning for better centering
 - Improved year picker UX - now opens at current year instead of start of list
