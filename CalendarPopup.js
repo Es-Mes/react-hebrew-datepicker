@@ -236,7 +236,7 @@ const CalendarPopup = ({
                                 key={i}
                                 type="button"
                                 onClick={() => handleSelect(day)}
-                                className={`date-picker-day ${isSelected ? "selected" : ""}`}
+                                className={`date-picker-day${isSelected ? " selected" : ""}`}
                             >
                                 {hebrewNumber(day)}
                             </button>
