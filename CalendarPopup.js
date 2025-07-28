@@ -82,7 +82,7 @@ const CalendarPopup = ({
 
     const handleSelect = (day) => {
         if (!day) return;
-        const hdate = new HDate(day+1, currentHDate.getMonth(), currentHDate.getFullYear());
+        const hdate = new HDate(day + 1, currentHDate.getMonth(), currentHDate.getFullYear());
         const gregDate = hdate.greg();
         const iso = gregDate.toISOString().slice(0, 10);
         onChange?.({ target: { name, value: iso } });
@@ -117,6 +117,7 @@ const CalendarPopup = ({
                     </h3>
                     <div style={{ display: "flex", gap: 6 }}>
                         <button
+                            type="button"
                             className="arrowBtn icon-tooltip"
                             onClick={() => {
                                 setTransitionDirection("forward");
@@ -139,6 +140,7 @@ const CalendarPopup = ({
                             </span>
                         </button>
                         <button
+                            type="button"
                             className="arrowBtn icon-tooltip"
                             onClick={() => {
                                 setTransitionDirection("backward");
@@ -185,7 +187,7 @@ const CalendarPopup = ({
                                 </div>
                             ))}
                         </div>
-                        <div 
+                        <div
                             ref={yearScrollRef}
                             style={{ maxHeight: 150, overflowY: "auto", direction: "rtl" }}
                         >
@@ -232,6 +234,7 @@ const CalendarPopup = ({
                         return (
                             <button
                                 key={i}
+                                type="button"
                                 onClick={() => handleSelect(day)}
                                 className={`date-picker-day ${isSelected ? "selected" : ""}`}
                             >
@@ -243,6 +246,7 @@ const CalendarPopup = ({
 
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
                     <button
+                        type="button"
                         onClick={() => {
                             const today = new HDate();
                             setCurrentHDate(today);
@@ -265,6 +269,7 @@ const CalendarPopup = ({
                     </button>
 
                     <button
+                        type="button"
                         onClick={() => {
                             onChange?.({ target: { name, value: "" } });
                             setShowCalendar(false);
