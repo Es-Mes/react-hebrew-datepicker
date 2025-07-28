@@ -182,15 +182,26 @@ const [date, setDate] = useState('');
 <HebrewDatePicker defaultValue="2024-01-01" onChange={(e) => console.log(e.target.value)} />
 ```
 
-### CSS Custom Properties
 
-You can customize the appearance using CSS custom properties:
+### Customizing the Main Color
+
+The main color for selected dates and highlights is always `#4da6ff` by default.
+
+If you want to use a different color, you can override it in your own CSS by targeting the relevant classes, for example:
 
 ```css
-:root {
-  --bgSoft: #4da6ff; /* Primary color for selected dates and buttons */
+.date-picker-day.selected,
+.month-year-picker div:hover,
+.tooltip-text,
+.date-picker-day:hover {
+  background-color: #yourColor !important;
+  border-color: #yourColor !important;
 }
 ```
+
+> By default, the color is always `#4da6ff`. You can override it as shown above if you want a different look.
+
+If you need more advanced theming, feel free to open an issue or contribute!
 
 ## Dependencies / תלויות
 

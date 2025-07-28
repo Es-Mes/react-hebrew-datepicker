@@ -1,7 +1,3 @@
-:root {
-  --bgSoft: #4da6ff;
-}
-
 .calendar-popup {
   z-index: 9999 !important;
   /* גבוה יותר מכל modal רגיל */
@@ -21,14 +17,14 @@
 
 
 .date-picker-day:hover {
-  border: 2px solid var(--bgSoft, #4da6ff);
+  border: 2px solid #4da6ff;
 }
 
 
 .date-picker-day.selected {
-  background-color: var(--bgSoft, #4da6ff);
+  background-color: #4da6ff;
   color: white;
-  border: 2px solid var(--bgSoft, #4da6ff);
+  border: 2px solid #4da6ff;
 }
 
 .month-year-picker div {
@@ -36,7 +32,7 @@
 }
 
 .month-year-picker div:hover {
-  background-color: var(--bgSoft, #4da6ff);
+  background-color: #4da6ff;
   color: white;
 }
 
@@ -102,7 +98,7 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--bgSoft, #4da6ff);
+  background-color: #4da6ff;
   color: white;
   padding: 4px 8px;
   white-space: nowrap;
@@ -124,7 +120,6 @@
   border-color: transparent transparent #333 transparent;
 }
 
-/* Desktop - show tooltip on hover */
 @media (hover: hover) and (pointer: fine) {
   .icon-tooltip:hover .tooltip-text {
     visibility: visible;
@@ -132,14 +127,12 @@
   }
 }
 
-/* Mobile/Touch devices - show tooltip for longer on tap */
 @media (hover: none) and (pointer: coarse) {
   .icon-tooltip:active .tooltip-text {
     visibility: visible;
     opacity: 1;
   }
 
-  /* Optional: Always show tooltips on mobile for better UX */
   .tooltip-text {
     visibility: visible;
     opacity: 0.7;
