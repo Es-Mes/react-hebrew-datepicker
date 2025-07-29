@@ -103,11 +103,13 @@
   left: 50%;
   transform: translateX(-55%);
   /* was -50%, shift a bit more for Hebrew */
-  background-color: #4da6ff;
-  color: white;
+  background-color: white;
+  color: black;
+  border: solid 1px black;
   padding: 4px 12px;
   /* wider */
-  min-width: 70px;
+  min-width: 60px;
+  width: fit-content;
   /* ensure enough width for Hebrew */
   white-space: normal;
   /* allow wrapping if needed */
