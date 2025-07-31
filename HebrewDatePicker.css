@@ -7,8 +7,8 @@
 .date-picker-day {
   padding: 8px;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: rgb(249, 249, 249);
+  border: 1px solid #dbd1d1;
+  background-color: white;
   color: #444;
   cursor: pointer;
   font-size: 14px;
@@ -96,7 +96,7 @@
 
 .tooltip-text {
   top: 0%;
-  border: solid 0.005px var(--text);
+  border: solid 0.005px black;
   border-radius: 5px;
   visibility: hidden;
   opacity: 0;
