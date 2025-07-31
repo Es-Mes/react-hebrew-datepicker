@@ -240,9 +240,7 @@ const CalendarPopup = ({
                                 style={{
                                     minWidth: 36,
                                     minHeight: 36,
-                                    backgroundColor: isSelected ? '#4da6ff' : '#f5f6fa', // fallback, matches CSS if selected
                                     color: isSelected ? '#fff' : '#444',
-                                    border: isSelected ? '2px solid #4da6ff' : '2px solid transparent',
                                     borderRadius: 8,
                                     fontSize: 14,
                                     cursor: 'pointer',

@@ -35,6 +35,18 @@ npm install react-hebrew-datepicker
 yarn add react-hebrew-datepicker
 ```
 
+### Importing the CSS
+
+To get the full default styling, make sure to import the CSS file in your app's entry point (e.g. App.js or index.js):
+
+```js
+import 'react-hebrew-datepicker/dist/styles.css';
+```
+
+If you do not import this file, the date picker will render without styles.
+
+---
+
 ## Usage / שימוש
 
 ### Basic Example (Controlled) / דוגמה בסיסית (מבוקרת)
@@ -227,7 +239,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/react-hebrew-datepicker.git
+git clone https://github.com/Es-Mes/react-hebrew-datepicker.git
 
 # Install dependencies
 npm install
@@ -288,9 +300,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Support / תמיכה
 
-If you have any issues or questions, please open an issue on [GitHub](https://github.com/yourusername/react-hebrew-datepicker/issues).
+If you have any issues or questions, please open an issue on [GitHub](https://github.com/Es-Mes/react-hebrew-datepicker/issues).
 
-אם יש לכם בעיות או שאלות, אנא פתחו issue ב-[GitHub](https://github.com/yourusername/react-hebrew-datepicker/issues).
+אם יש לכם בעיות או שאלות, אנא פתחו issue ב-[GitHub](https://github.com/Es-mes/react-hebrew-datepicker/issues).
 
 ---
 
