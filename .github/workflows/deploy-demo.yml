@@ -1,12 +1,9 @@
 name: Build and Deploy Demo
 
 on:
-  # הפעלה אוטומטית בכל push לענף main
+  # הפעלה אוטומטית בכל push לענף main או tag חדש
   push:
     branches: [ main ]
-  
-  # הפעלה אוטומטית בכל יצירת tag חדש (גרסה חדשה)
-  push:
     tags:
       - 'v*'
   
