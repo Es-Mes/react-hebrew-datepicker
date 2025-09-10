@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="he">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="React Hebrew DatePicker Demo - דמו לקומפוננטת בוחר התאריכים העברי" />
+  <meta name="keywords" content="React, Hebrew, DatePicker, Calendar, Jewish, Israeli, עברי, תאריך, לוח" />
+  <meta name="author" content="Es-Mes" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="React Hebrew DatePicker Demo" />
+  <meta property="og:description"
+    content="Interactive demo for React Hebrew DatePicker component - קומפוננטת בוחר תאריכים עברי לReact" />
+  <meta property="og:type" content="website" />
+
+  <title>React Hebrew DatePicker Demo - דמו בוחר תאריכים עברי</title>
+
+  <style>
+    /* Loading styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: #f8fafc;
+    }
+
+    #root {
+      min-height: 100vh;
+    }
+
+    /* Loading spinner */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

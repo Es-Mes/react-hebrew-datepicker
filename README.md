@@ -12,6 +12,10 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 
 ## Demo / דמו
 
+
+🚀 **[Try the Live Demo / נסו את הדמו החי](https://es-mes.github.io/react-hebrew-datepicker/)**
+
+
 ![Hebrew DatePicker Demo](screenshots/demo.gif)
 
 *Interactive Hebrew date picker with Gregorian conversion*
@@ -30,7 +34,6 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 ## Installation / התקנה
 
 ```bash
-npm install react-hebrew-datepicker
 # or
 yarn add react-hebrew-datepicker
 ```

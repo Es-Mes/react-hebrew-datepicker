@@ -16,7 +16,12 @@
         "build": "rollup -c",
         "dev": "rollup -c -w",
         "prepare": "npm run build",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "demo:install": "cd demo && npm install",
+        "demo:dev": "npm run build && cd demo && npm run dev",
+        "demo:build": "npm run build && cd demo && npm run build",
+        "demo:preview": "cd demo && npm run preview",
+        "deploy:demo": "npm run demo:build"
     },
     "keywords": [
         "react",
