@@ -49,6 +49,10 @@ jobs:
         cd demo
         npm ci
         
+    - name: Copy dist to demo for local imports
+      run: |
+        cp -r dist demo/
+        
     - name: Build demo
       run: |
         cd demo
