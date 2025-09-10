@@ -47,7 +47,8 @@ jobs:
     - name: Install demo dependencies
       run: |
         cd demo
-        npm ci
+        rm -f package-lock.json
+        npm install
         
     - name: Copy dist to demo for local imports
       run: |
