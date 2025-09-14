@@ -34,6 +34,7 @@ export default [
             }),
             resolve({
                 browser: true,
+                preferBuiltins: false,
             }),
             commonjs(),
             postcss({
@@ -42,7 +43,11 @@ export default [
             }),
             terser(),
         ],
-        external: ['react', 'react-dom', '@hebcal/core', 'react-icons/io5', 'react-icons/fa'],
+        external: (id) => {
+            return ['react', 'react-dom', '@hebcal/core', 'react-icons/io5', 'react-icons/fa'].some(dep =>
+                id === dep || id.startsWith(dep + '/')
+            );
+        },
     },
     {
         input: 'index.d.ts',
