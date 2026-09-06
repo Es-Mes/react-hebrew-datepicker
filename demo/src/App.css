@@ -127,6 +127,35 @@
   align-items: stretch;
 }
 
+.external-field-label {
+  font-weight: 600;
+  color: #374151;
+  text-align: right;
+  direction: rtl;
+}
+
+.rhdp-theme-green {
+  --rhdp-primary: #16a34a;
+}
+
+.flip-demo-box {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.flip-demo-hint {
+  margin: 0 0 auto 0 !important;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
 .result {
   padding: 1rem;
   background: #f8fafc;

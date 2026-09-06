@@ -3,13 +3,33 @@
   /* גבוה יותר מכל modal רגיל */
 }
 
+.rhdp-calendar-body {
+  position: relative;
+  min-height: 220px;
+}
+
+.rhdp-month-year-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--rhdp-surface, #ffffff);
+  z-index: 2;
+}
+
+.rhdp-month-year-overlay > div {
+  flex: 1;
+  max-height: 100%;
+  overflow-y: auto;
+}
 
 .date-picker-day {
   padding: 8px;
   border-radius: 8px;
-  border: 1px solid #dbd1d1;
-  background-color: white;
-  color: #444;
+  border: 1px solid var(--rhdp-day-border, #dbd1d1);
+  background-color: var(--rhdp-surface, #ffffff);
+  color: var(--rhdp-text, #444);
   cursor: pointer;
   font-size: 14px;
   transition: 0.2s;
@@ -17,13 +37,25 @@
 
 
 .date-picker-day:hover {
-  border: 1.5px solid #4da6ff;
+  border: 1.5px solid var(--rhdp-primary, #4da6ff);
 }
 
 
 .date-picker-day.selected {
-  background-color: #4da6ff;
-  color: white;
+  background-color: var(--rhdp-primary, #4da6ff);
+  color: var(--rhdp-on-primary, #ffffff);
+}
+
+.date-picker-day:disabled,
+.date-picker-day.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background-color: var(--rhdp-disabled-bg, #f3f4f6);
+}
+
+.date-picker-day:disabled:hover,
+.date-picker-day.disabled:hover {
+  border: 1px solid var(--rhdp-day-border, #dbd1d1);
 }
 
 .month-year-picker div {
@@ -31,8 +63,8 @@
 }
 
 .month-year-picker div:hover {
-  background-color: #4da6ff;
-  color: white;
+  background-color: var(--rhdp-primary, #4da6ff);
+  color: var(--rhdp-on-primary, #ffffff);
 }
 
 @keyframes slideLeft {

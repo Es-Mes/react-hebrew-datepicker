@@ -27,6 +27,34 @@ const hebrewNumber = (num) => {
     return num;
 };
 
+const hebrewDayToIso = (day, month, year) => {
+    const hdate = new HDate(day + 1, month, year);
+    return hdate.greg().toISOString().slice(0, 10);
+};
+
+const isIsoDisabled = (iso, minDate, maxDate, isDateDisabled) => {
+    if (!iso) return false;
+    if (minDate && iso < minDate) return true;
+    if (maxDate && iso > maxDate) return true;
+    if (isDateDisabled?.(iso)) return true;
+    return false;
+};
+
+const hebrewYearFromIso = (iso) => new HDate(new Date(`${iso}T12:00:00`)).getFullYear();
+
+const getSelectableYears = (currentYear, minDate, maxDate) => {
+    if (!minDate && !maxDate) {
+        return Array.from({ length: 60 }, (_, i) => currentYear - 30 + i);
+    }
+    const minYear = minDate ? hebrewYearFromIso(minDate) : currentYear - 30;
+    const maxYear = maxDate ? hebrewYearFromIso(maxDate) : currentYear + 30;
+    const years = [];
+    for (let year = minYear; year <= maxYear; year++) {
+        years.push(year);
+    }
+    return years;
+};
+
 const addHebrewMonths = (hdate, offset) => {
     let month = hdate.getMonth();
     let year = hdate.getFullYear();
@@ -56,7 +84,13 @@ const CalendarPopup = ({
     setShowMonthYearPicker,
     transitionDirection,
     setTransitionDirection,
-    name
+    name,
+    labels = {},
+    minDate,
+    maxDate,
+    isDateDisabled,
+    popupClassName,
+    themeStyle,
 }) => {
     const yearScrollRef = useRef(null);
 
@@ -82,34 +116,41 @@ const CalendarPopup = ({
 
     const handleSelect = (day) => {
         if (!day) return;
-        const hdate = new HDate(day + 1, currentHDate.getMonth(), currentHDate.getFullYear());
-        const gregDate = hdate.greg();
-        const iso = gregDate.toISOString().slice(0, 10);
+        const iso = hebrewDayToIso(day, currentHDate.getMonth(), currentHDate.getFullYear());
+        if (isIsoDisabled(iso, minDate, maxDate, isDateDisabled)) return;
         onChange?.({ target: { name, value: iso } });
         setShowCalendar(false);
     };
+
+    const todayIso = new HDate().greg().toISOString().slice(0, 10);
+    const todayBlocked = isIsoDisabled(todayIso, minDate, maxDate, isDateDisabled);
+    const selectableYears = getSelectableYears(currentHDate.getFullYear(), minDate, maxDate);
 
     return (
         <>
             <div style={{ position: "fixed", inset: 0, zIndex: 3000 }} onClick={() => setShowCalendar(false)} />
             <div
                 ref={popupRef}
+                className={["rhdp-popup", "calendar-popup", popupClassName].filter(Boolean).join(" ")}
                 style={{
                     position: "absolute",
                     top: calendarPos.top,
+                    bottom: calendarPos.bottom,
                     left: calendarPos.left,
-                    backgroundColor: "white",
-                    borderRadius: 12,
-                    boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+                    backgroundColor: "var(--rhdp-surface, white)",
+                    borderRadius: "var(--rhdp-radius, 12px)",
+                    boxShadow: "var(--rhdp-shadow, 0 4px 15px rgba(0,0,0,0.3))",
                     padding: 16,
                     width: 320,
-                    fontFamily: "Arial, sans-serif",
+                    maxHeight: "min(90vh, 480px)",
+                    fontFamily: "var(--rhdp-font, Arial, sans-serif)",
                     zIndex: 10000,
+                    ...themeStyle,
                 }}
             >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, borderBottom: "1px solid #eee" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
                     <h3
-                        style={{ margin: 0, fontSize: 16, color: "#4da6ff", cursor: "pointer" }}
+                        style={{ margin: 0, fontSize: 16, color: "var(--rhdp-primary, #4da6ff)", cursor: "pointer" }}
                         onClick={() => setShowMonthYearPicker((prev) => !prev)}
                     >
                         {hebrewMonths[currentHDate.getMonth() - 1]} {new HDate(1, currentHDate.getMonth(), currentHDate.getFullYear()).renderGematriya().split(" ").pop()}
@@ -128,15 +169,13 @@ const CalendarPopup = ({
                                 border: "none",
                                 fontSize: 18,
                                 cursor: "pointer",
-                                color: "#4da6ff",
-                                // position: "relative",
-                                // display: "inline-block",
+                                color: "var(--rhdp-primary, #4da6ff)",
                                 padding: "8px"
                             }}
                         >
                             <IoArrowDown />
                             <span className="tooltip-text next">
-                                חודש הבא
+                                {labels.nextMonth || "חודש הבא"}
                             </span>
                         </button>
                         <button
@@ -151,23 +190,22 @@ const CalendarPopup = ({
                                 border: "none",
                                 fontSize: 18,
                                 cursor: "pointer",
-                                color: "#4da6ff",
-                                // position: "relative",
-                                // display: "inline-block",
+                                color: "var(--rhdp-primary, #4da6ff)",
                                 padding: "8px"
                             }}
                         >
                             <IoArrowUp />
                             <span className="tooltip-text prev">
-                                חודש קודם
+                                {labels.prevMonth || "חודש קודם"}
                             </span>
                         </button>
                     </div>
                 </div>
 
+                <div className="rhdp-calendar-body">
                 {showMonthYearPicker && (
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
-                        <div style={{ maxHeight: 150, overflowY: "auto", direction: "rtl" }}>
+                    <div className="month-year-picker rhdp-month-year-overlay">
+                        <div style={{ direction: "rtl" }}>
                             {hebrewMonths.map((monthName, i) => (
                                 <div
                                     key={i + 1}
@@ -178,8 +216,8 @@ const CalendarPopup = ({
                                     style={{
                                         padding: 6,
                                         cursor: "pointer",
-                                        color: currentHDate.getMonth() === i + 1 ? "white" : "#333",
-                                        backgroundColor: currentHDate.getMonth() === i + 1 ? "#4da6ff" : "transparent",
+                                        color: currentHDate.getMonth() === i + 1 ? "var(--rhdp-on-primary, white)" : "var(--rhdp-muted, #333)",
+                                        backgroundColor: currentHDate.getMonth() === i + 1 ? "var(--rhdp-primary, #4da6ff)" : "transparent",
                                         borderRadius: 6
                                     }}
                                 >
@@ -189,11 +227,9 @@ const CalendarPopup = ({
                         </div>
                         <div
                             ref={yearScrollRef}
-                            style={{ maxHeight: 150, overflowY: "auto", direction: "rtl" }}
+                            style={{ direction: "rtl" }}
                         >
-                            {Array.from({ length: 60 }, (_, i) => { // 60 years total
-                                const currentYear = currentHDate.getFullYear();
-                                const year = currentYear - 30 + i; // 30 years before to 30 years after
+                            {selectableYears.map((year) => {
                                 const label = new HDate(1, 1, year).renderGematriya().split(" ").pop();
                                 return (
                                     <div
@@ -206,8 +242,8 @@ const CalendarPopup = ({
                                         style={{
                                             padding: 6,
                                             cursor: "pointer",
-                                            color: currentHDate.getFullYear() === year ? "white" : "#333",
-                                            backgroundColor: currentHDate.getFullYear() === year ? "#4da6ff" : "transparent",
+                                            color: currentHDate.getFullYear() === year ? "var(--rhdp-on-primary, white)" : "var(--rhdp-muted, #333)",
+                                            backgroundColor: currentHDate.getFullYear() === year ? "var(--rhdp-primary, #4da6ff)" : "transparent",
                                             borderRadius: 6
                                         }}
                                     >
@@ -223,10 +259,12 @@ const CalendarPopup = ({
                     style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6, textAlign: "center" }}>
 
                     {daysOfWeek.map((d) => (
-                        <div key={d} style={{ fontWeight: "bold", color: "#4da6ff" }}>{d}</div>
+                        <div key={d} style={{ fontWeight: "bold", color: "var(--rhdp-primary, #4da6ff)" }}>{d}</div>
                     ))}
                     {daysArray.map((day, i) => {
                         if (!day) return <div key={i} />;
+                        const iso = hebrewDayToIso(day, currentHDate.getMonth(), currentHDate.getFullYear());
+                        const dayDisabled = isIsoDisabled(iso, minDate, maxDate, isDateDisabled);
                         const isSelected =
                             selectedHDate.getDate() === day &&
                             selectedHDate.getMonth() === currentHDate.getMonth() &&
@@ -235,15 +273,17 @@ const CalendarPopup = ({
                             <button
                                 key={i}
                                 type="button"
+                                disabled={dayDisabled}
+                                aria-disabled={dayDisabled}
                                 onClick={() => handleSelect(day)}
-                                className={`date-picker-day${isSelected ? " selected" : ""}`}
+                                className={`date-picker-day${isSelected ? " selected" : ""}${dayDisabled ? " disabled" : ""}`}
                                 style={{
                                     minWidth: 36,
                                     minHeight: 36,
-                                    color: isSelected ? '#fff' : '#444',
+                                    color: isSelected ? 'var(--rhdp-on-primary, #fff)' : 'var(--rhdp-text, #444)',
                                     borderRadius: 8,
                                     fontSize: 14,
-                                    cursor: 'pointer',
+                                    cursor: dayDisabled ? 'not-allowed' : 'pointer',
                                     padding: 8,
                                     transition: 'border .2s,background .2s,color .2s',
                                     boxSizing: 'border-box',
@@ -255,29 +295,30 @@ const CalendarPopup = ({
                         );
                     })}
                 </div>
+                </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
                     <button
                         type="button"
+                        disabled={todayBlocked}
                         onClick={() => {
                             const today = new HDate();
                             setCurrentHDate(today);
-                            const gregDate = today.greg();
-                            const iso = gregDate.toISOString().slice(0, 10);
-                            onChange?.({ target: { name, value: iso } });
+                            if (todayBlocked) return;
+                            onChange?.({ target: { name, value: todayIso } });
                             setShowCalendar(false);
                         }}
 
                         style={{
                             fontSize: 14,
-                            color: "#4da6ff",
+                            color: todayBlocked ? "var(--rhdp-disabled-text, #9ca3af)" : "var(--rhdp-primary, #4da6ff)",
                             background: "none",
                             border: "none",
-                            cursor: "pointer",
+                            cursor: todayBlocked ? "not-allowed" : "pointer",
                             textDecoration: "underline",
                         }}
                     >
-                        היום
+                        {labels.today || "היום"}
                     </button>
 
                     <button
@@ -288,14 +329,14 @@ const CalendarPopup = ({
                         }}
                         style={{
                             fontSize: 14,
-                            color: "#4da6ff",
+                            color: "var(--rhdp-primary, #4da6ff)",
                             background: "none",
                             border: "none",
                             cursor: "pointer",
                             textDecoration: "underline",
                         }}
                     >
-                        נקה
+                        {labels.clear || "נקה"}
                     </button>
                 </div>
             </div>
