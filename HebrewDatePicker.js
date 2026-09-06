@@ -212,6 +212,7 @@ const HebrewDatePicker = ({
     popupClassName,
     themeStyle,
     showGregorian,
+    dir,
   };
 
   return (

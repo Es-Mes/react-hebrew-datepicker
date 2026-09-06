@@ -1,6 +1,31 @@
 .calendar-popup {
   z-index: 9999 !important;
-  /* גבוה יותר מכל modal רגיל */
+}
+
+.rhdp-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rhdp-footer-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2;
+  cursor: pointer;
+  background: var(--rhdp-primary, #4da6ff);
+  color: var(--rhdp-on-primary, #ffffff);
+  text-decoration: none;
+}
+
+.rhdp-footer-btn:disabled {
+  background: var(--rhdp-disabled-bg, #f3f4f6);
+  color: var(--rhdp-disabled-text, #9ca3af);
+  cursor: not-allowed;
 }
 
 .rhdp-calendar-body {
@@ -40,14 +65,15 @@
   background: var(--rhdp-gregorian-bar, #eef1f4);
   color: var(--rhdp-muted, #555555);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 700;
   line-height: 1.3;
   text-align: center;
 }
 
 .rhdp-gregorian-day {
-  font-size: 9px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--rhdp-gregorian, #9aa3ad);
   line-height: 1;
 }
@@ -79,7 +105,8 @@
   position: absolute;
   bottom: 6px;
   left: 7px;
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
 .date-picker-day {
@@ -122,12 +149,12 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
 }
 
 .month-year-picker .rhdp-picker-item:hover {
-  background-color: var(--rhdp-primary, #4da6ff);
-  color: var(--rhdp-on-primary, #ffffff);
+  border-color: var(--rhdp-primary, #4da6ff);
 }
 
 @keyframes slideLeft {

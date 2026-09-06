@@ -105,6 +105,7 @@ export interface CalendarPopupProps {
     maxDate?: string;
     isDateDisabled?: (isoDate: string) => boolean;
     showGregorian?: boolean;
+    dir?: 'rtl' | 'ltr';
 }
 
 declare const HebrewDatePicker: React.FC<HebrewDatePickerProps>;

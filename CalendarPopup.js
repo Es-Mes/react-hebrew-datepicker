@@ -79,6 +79,12 @@ const gregorianDateForHebrewDay = (day, month, year) => (
     new HDate(day, month, year).greg()
 );
 
+const scrollChildToCenter = (container, child) => {
+    if (!container || !child) return;
+    const top = child.offsetTop - container.clientHeight / 2 + child.clientHeight / 2;
+    container.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+};
+
 const formatGregorianBarLabel = (hdate, monthNames) => {
     const daysInMonth = hdate.daysInMonth();
     const firstGreg = new HDate(1, hdate.getMonth(), hdate.getFullYear()).greg();
@@ -133,8 +139,10 @@ const CalendarPopup = ({
     popupClassName,
     themeStyle,
     showGregorian = false,
+    dir = "rtl",
 }) => {
     const yearScrollRef = useRef(null);
+    const gregorianMonthScrollRef = useRef(null);
     const gregorianYearScrollRef = useRef(null);
     const [showGregorianPicker, setShowGregorianPicker] = useState(false);
     const gregorianMonths = labels.gregorianMonths?.length === 12
@@ -154,15 +162,15 @@ const CalendarPopup = ({
     }, [showMonthYearPicker, currentHDate]);
 
     useEffect(() => {
-        if (showGregorianPicker && gregorianYearScrollRef.current) {
-            const focusDate = gregorianDateForHebrewDay(1, currentHDate.getMonth(), currentHDate.getFullYear());
-            const currentYearElement = gregorianYearScrollRef.current.querySelector(`[data-year="${focusDate.getFullYear()}"]`);
-            if (currentYearElement) {
-                setTimeout(() => {
-                    currentYearElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
-                }, 50);
-            }
-        }
+        if (!showGregorianPicker) return undefined;
+        const focusDate = gregorianDateForHebrewDay(1, currentHDate.getMonth(), currentHDate.getFullYear());
+        const timeoutId = setTimeout(() => {
+            const monthContainer = gregorianMonthScrollRef.current;
+            const yearContainer = gregorianYearScrollRef.current;
+            scrollChildToCenter(monthContainer, monthContainer?.querySelector(`[data-month="${focusDate.getMonth()}"]`));
+            scrollChildToCenter(yearContainer, yearContainer?.querySelector(`[data-year="${focusDate.getFullYear()}"]`));
+        }, 50);
+        return () => clearTimeout(timeoutId);
     }, [showGregorianPicker, currentHDate]);
 
     const firstOfMonth = new HDate(1, currentHDate.getMonth(), currentHDate.getFullYear());
@@ -209,6 +217,7 @@ const CalendarPopup = ({
             <div
                 ref={popupRef}
                 className={["rhdp-popup", "calendar-popup", popupClassName].filter(Boolean).join(" ")}
+                dir={dir}
                 style={{
                     position: "absolute",
                     top: calendarPos.top,
@@ -351,10 +360,11 @@ const CalendarPopup = ({
 
                 {showGregorianPicker && (
                     <div className="month-year-picker rhdp-month-year-overlay">
-                        <div className="rhdp-month-year-column" style={{ direction: "rtl" }}>
+                        <div ref={gregorianMonthScrollRef} className="rhdp-month-year-column" style={{ direction: "rtl" }}>
                             {gregorianMonths.map((monthName, monthIndex) => (
                                 <div
                                     key={monthName}
+                                    data-month={monthIndex}
                                     className="rhdp-picker-item"
                                     onClick={() => jumpToGregorianMonth(monthIndex, focusGregorian.getFullYear())}
                                     style={{
@@ -444,9 +454,10 @@ const CalendarPopup = ({
                 </div>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
+                <div className="rhdp-footer-actions">
                     <button
                         type="button"
+                        className="rhdp-footer-btn"
                         disabled={todayBlocked}
                         onClick={() => {
                             const today = new HDate();
@@ -455,32 +466,16 @@ const CalendarPopup = ({
                             onChange?.({ target: { name, value: todayIso } });
                             setShowCalendar(false);
                         }}
-
-                        style={{
-                            fontSize: 14,
-                            color: todayBlocked ? "var(--rhdp-disabled-text, #9ca3af)" : "var(--rhdp-primary, #4da6ff)",
-                            background: "none",
-                            border: "none",
-                            cursor: todayBlocked ? "not-allowed" : "pointer",
-                            textDecoration: "underline",
-                        }}
                     >
                         {labels.today || "היום"}
                     </button>
 
                     <button
                         type="button"
+                        className="rhdp-footer-btn"
                         onClick={() => {
                             onChange?.({ target: { name, value: "" } });
                             setShowCalendar(false);
-                        }}
-                        style={{
-                            fontSize: 14,
-                            color: "var(--rhdp-primary, #4da6ff)",
-                            background: "none",
-                            border: "none",
-                            cursor: "pointer",
-                            textDecoration: "underline",
                         }}
                     >
                         {labels.clear || "נקה"}
