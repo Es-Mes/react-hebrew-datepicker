@@ -18,6 +18,7 @@ function App() {
   const [weekdayOnlyDate, setWeekdayOnlyDate] = useState('')
   const [themeDate, setThemeDate] = useState('')
   const [flipDate, setFlipDate] = useState('')
+  const [gregorianDate, setGregorianDate] = useState('')
 
   const toLocalIso = (date) => {
     const year = date.getFullYear()
@@ -283,6 +284,26 @@ function App() {
             </div>
           </section>
         </div>
+
+        <section className="demo-section">
+          <h2>תצוגה משותפת (showGregorian)</h2>
+          <p>
+            הרשת נשארת עברית. בכל תא מופיע גם המספר הלועזי באפור, ומתחת לכותרת יש פס אפור עם החודש והשנה הלועזיים.
+            לחיצה על הפס פותחת בוחר חודש/שנה לועזי ומקפיצה את הלוח לשם.
+          </p>
+          <div className="demo-container">
+            <HebrewDatePicker
+              name="gregorianDate"
+              value={gregorianDate}
+              onChange={(event) => setGregorianDate(event.target.value)}
+              label="תאריך עם תצוגת לועזי"
+              showGregorian
+            />
+            <div className="result">
+              <strong>תאריך נבחר:</strong> {gregorianDate || 'לא נבחר תאריך'}
+            </div>
+          </div>
+        </section>
 
         {/* שילוב בטופס */}
         <section className="demo-section">

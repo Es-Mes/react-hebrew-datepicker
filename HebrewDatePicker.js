@@ -27,6 +27,8 @@ const THEME_VARS = [
   "--rhdp-font",
   "--rhdp-shadow",
   "--rhdp-radius",
+  "--rhdp-gregorian",
+  "--rhdp-gregorian-bar",
 ];
 
 const POPUP_WIDTH = 320;
@@ -44,7 +46,7 @@ const readThemeVars = (element) => {
   return style;
 };
 
-const computeCalendarPosition = (inputEl, popupEl, usePortal) => {
+const computeCalendarPosition = (inputEl, popupEl, usePortal, popupWidth = POPUP_WIDTH) => {
   const rect = inputEl.getBoundingClientRect();
   const height = popupEl?.offsetHeight || FALLBACK_POPUP_HEIGHT;
   const spaceBelow = window.innerHeight - rect.bottom;
@@ -57,9 +59,9 @@ const computeCalendarPosition = (inputEl, popupEl, usePortal) => {
       : { top: `calc(100% + ${POPUP_GAP}px)`, bottom: "auto", left: 0 };
   }
 
-  let left = rect.left + window.scrollX + (rect.width - POPUP_WIDTH) / 2;
+  let left = rect.left + window.scrollX + (rect.width - popupWidth) / 2;
   const minLeft = window.scrollX + 10;
-  const maxLeft = window.scrollX + window.innerWidth - POPUP_WIDTH - 10;
+  const maxLeft = window.scrollX + window.innerWidth - popupWidth - 10;
   left = Math.max(minLeft, Math.min(left, maxLeft));
 
   return {
@@ -87,6 +89,7 @@ const HebrewDatePicker = ({
   isDateDisabled,
   className,
   popupClassName,
+  showGregorian = false,
 }) => {
   const resolvedLabel = label === undefined ? "בחר תאריך" : label;
   const showLabel = typeof resolvedLabel === "string";
@@ -171,7 +174,12 @@ const HebrewDatePicker = ({
     if (!showCalendar || !inputRef.current) return undefined;
 
     const updatePosition = () => {
-      setCalendarPos(computeCalendarPosition(inputRef.current, popupRef.current, usePortal));
+      setCalendarPos(computeCalendarPosition(
+        inputRef.current,
+        popupRef.current,
+        usePortal,
+        showGregorian ? 368 : POPUP_WIDTH,
+      ));
     };
 
     updatePosition();
@@ -183,7 +191,7 @@ const HebrewDatePicker = ({
       window.removeEventListener("resize", updatePosition);
       window.removeEventListener("scroll", updatePosition, true);
     };
-  }, [showCalendar, showMonthYearPicker, usePortal]);
+  }, [showCalendar, showMonthYearPicker, usePortal, showGregorian]);
 
   const calendarProps = {
     popupRef,
@@ -203,6 +211,7 @@ const HebrewDatePicker = ({
     isDateDisabled,
     popupClassName,
     themeStyle,
+    showGregorian,
   };
 
   return (

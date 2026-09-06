@@ -43,6 +43,9 @@ export interface HebrewDatePickerProps {
 
     /** Extra class on the calendar popup */
     popupClassName?: string;
+
+    /** Show Gregorian day numbers and a Gregorian month/year bar. Off by default. */
+    showGregorian?: boolean;
 }
 
 export interface DatePickerLabels {
@@ -51,6 +54,8 @@ export interface DatePickerLabels {
     clear?: string;
     nextMonth?: string;
     prevMonth?: string;
+    /** 12 Gregorian month names, January first */
+    gregorianMonths?: string[];
 }
 
 export interface CalendarPopupProps {
@@ -99,6 +104,7 @@ export interface CalendarPopupProps {
     minDate?: string;
     maxDate?: string;
     isDateDisabled?: (isoDate: string) => boolean;
+    showGregorian?: boolean;
 }
 
 declare const HebrewDatePicker: React.FC<HebrewDatePickerProps>;
