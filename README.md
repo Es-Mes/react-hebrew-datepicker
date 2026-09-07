@@ -1,8 +1,8 @@
-# React Hebrew DatePicker / בוחר תאריכים עברי
+<h1 align="right">React Hebrew DatePicker / בוחר תאריכים עברי</h1>
 
 A beautiful and functional Hebrew date picker component for React with full Hebrew calendar support and Gregorian conversion.
 
-קומפוננטה יפה ופונקציונלית לבחירת תאריכים עבריים ב-React עם תמיכה מלאה בלוח העברי והמרה ללוח הגרגוריאני.
+<p dir="rtl">קומפוננטה יפה ופונקציונלית לבחירת תאריכים עבריים ב-React עם תמיכה מלאה בלוח העברי והמרה ללוח הגרגוריאני.</p>
 
 [![npm version](https://img.shields.io/npm/v/react-hebrew-datepicker.svg)](https://www.npmjs.com/package/react-hebrew-datepicker)
 [![npm downloads](https://img.shields.io/npm/dm/react-hebrew-datepicker.svg)](https://www.npmjs.com/package/react-hebrew-datepicker)
@@ -10,7 +10,7 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 [![Bundle Size](https://img.shields.io/bundlephobia/min/react-hebrew-datepicker)](https://bundlephobia.com/package/react-hebrew-datepicker)
 [![GitHub stars](https://img.shields.io/github/stars/Es-Mes/react-hebrew-datepicker.svg?style=social&label=Star)](https://github.com/Es-Mes/react-hebrew-datepicker)
 
-## Demo / דמו
+<h2 align="right">Demo / דמו</h2>
 
 
 🚀 **[Try the Live Demo / נסו את הדמו החי](https://es-mes.github.io/react-hebrew-datepicker/)**
@@ -29,10 +29,10 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 
 *New in 1.1: shared Hebrew + Gregorian display (`showGregorian`)*
 
-## Recommended from 1.1 / מומלץ מגרסה 1.1
+<h2 align="right">Recommended from 1.1 / מומלץ מגרסה 1.1</h2>
 
 **Starting in 1.1, use the shared Hebrew + Gregorian calendar for new forms.**  
-מגרסה **1.1** מומלץ להציג לוח משותף: רשת עברית, מספר לועזי בכל תא, ופס חודש/שנה לועזיים.
+<p dir="rtl">מגרסה <strong>1.1</strong> מומלץ להציג לוח משותף: רשת עברית, מספר לועזי בכל תא, ופס חודש/שנה לועזיים.</p>
 
 Enable it with `showGregorian`. The default stays `false` so existing 1.0 calendars keep their look.
 
@@ -46,7 +46,7 @@ Enable it with `showGregorian`. The default stays `false` so existing 1.0 calend
 />
 ```
 
-## Features / תכונות
+<h2 align="right">Features / תכונות</h2>
 
 - 📅 **Hebrew Calendar Support** - Full Hebrew calendar with proper month and year calculations
 - ⭐ **Shared Hebrew + Gregorian display (new in 1.1)** — recommended for new forms (`showGregorian`)
@@ -56,7 +56,7 @@ Enable it with `showGregorian`. The default stays `false` so existing 1.0 calend
 - 🎯 **TypeScript Support** - Definitions include all public props
 - 🎪 **Portal Support** - Optional rendering outside overflow containers
 
-## Installation / התקנה
+<h2 align="right">Installation / התקנה</h2>
 
 ```bash
 npm install react-hebrew-datepicker
@@ -64,7 +64,7 @@ npm install react-hebrew-datepicker
 yarn add react-hebrew-datepicker
 ```
 
-### Importing the CSS
+<h3 align="right">Importing the CSS</h3>
 
 To get the full default styling, make sure to import the CSS file in your app's entry point (e.g. App.js or index.js):
 
@@ -76,9 +76,9 @@ If you do not import this file, the date picker will render without styles.
 
 ---
 
-## Usage / שימוש
+<h2 align="right">Usage / שימוש</h2>
 
-### Basic Example (Controlled) / דוגמה בסיסית (מבוקרת)
+<h3 align="right">Basic Example (Controlled) / דוגמה בסיסית (מבוקרת)</h3>
 
 ```jsx
 import React, { useState } from 'react';
@@ -109,7 +109,7 @@ function App() {
 export default App;
 ```
 
-### Simple Example (Uncontrolled) / דוגמה פשוטה (לא מבוקרת)
+<h3 align="right">Simple Example (Uncontrolled) / דוגמה פשוטה (לא מבוקרת)</h3>
 
 ```jsx
 import React from 'react';
@@ -136,7 +136,7 @@ function App() {
 export default App;
 ```
 
-### With Portal / עם פורטל
+<h3 align="right">With Portal / עם פורטל</h3>
 
 ```jsx
 <HebrewDatePicker
@@ -148,7 +148,7 @@ export default App;
 />
 ```
 
-### Form Integration / שילוב בטופס
+<h3 align="right">Form Integration / שילוב בטופס</h3>
 
 ```jsx
 import React, { useState } from 'react';
@@ -197,9 +197,9 @@ function UserForm() {
 }
 ```
 
-## API Reference / מדריך API
+<h2 align="right">API Reference / מדריך API</h2>
 
-### HebrewDatePicker Props
+<h3 align="right">HebrewDatePicker Props</h3>
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -220,7 +220,7 @@ function UserForm() {
 | `className` | `string` | `undefined` | Extra class on the field wrapper (set CSS variables here) |
 | `popupClassName` | `string` | `undefined` | Extra class on the calendar popup |
 
-### Usage Modes / מצבי שימוש
+<h3 align="right">Usage Modes / מצבי שימוש</h3>
 
 **Controlled Mode** - You manage the state externally:
 ```jsx
@@ -234,7 +234,7 @@ const [date, setDate] = useState('');
 ```
 
 
-### Theming / ערכת צבעים
+<h3 align="right">Theming / ערכת צבעים</h3>
 
 Default accent is `#4da6ff`. Override CSS variables on `className` (works with Portal too):
 
@@ -252,7 +252,7 @@ Useful variables: `--rhdp-primary`, `--rhdp-on-primary`, `--rhdp-surface`, `--rh
 
 `popupClassName` styles the opened calendar when it is rendered with `usePortal` (outside the field wrapper).
 
-### Form examples / דוגמאות טופס
+<h3 align="right">Form examples / דוגמאות טופס</h3>
 
 Birth date (no future dates; year list follows the range):
 
@@ -278,26 +278,26 @@ Without `minDate` / `maxDate`, the year picker stays at ±30 around the displaye
 
 The calendar opens below the field when there is room, and above when there is not. Use `usePortal` inside a Drawer / `overflow: hidden` parent.
 
-## Dependencies / תלויות
+<h2 align="right">Dependencies / תלויות</h2>
 
 - **React** >= 16.8.0 (with Hooks support)
 - **@hebcal/core** - For Hebrew calendar calculations
 - **react-icons** - For calendar and navigation icons
 
-## Browser Support / תמיכה בדפדפנים
+<h2 align="right">Browser Support / תמיכה בדפדפנים</h2>
 
 - Chrome >= 60
 - Firefox >= 60
 - Safari >= 12
 - Edge >= 79
 
-## Contributing / תרומה
+<h2 align="right">Contributing / תרומה</h2>
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-תרומות מתקבלות בברכה! אנא הגישו Pull Request.
+<p dir="rtl">תרומות מתקבלות בברכה! אנא הגישו Pull Request.</p>
 
-### Development Setup / הגדרת פיתוח
+<h3 align="right">Development Setup / הגדרת פיתוח</h3>
 
 ```bash
 # Clone the repository
@@ -314,20 +314,20 @@ npm run demo:watch
 npm run build
 ```
 
-## License / רישיון
+<h2 align="right">License / רישיון</h2>
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
-## Support / תמיכה
+<h2 align="right">Support / תמיכה</h2>
 
 If you have any issues or questions, please open an issue on [GitHub](https://github.com/Es-Mes/react-hebrew-datepicker/issues).
 
-אם יש לכם בעיות או שאלות, אנא פתחו issue ב-[GitHub](https://github.com/Es-mes/react-hebrew-datepicker/issues).
+<p dir="rtl">אם יש לכם בעיות או שאלות, אנא פתחו issue ב-<a href="https://github.com/Es-Mes/react-hebrew-datepicker/issues">GitHub</a>.</p>
 
 ---
 
 Made with ❤️ for the Hebrew-speaking developer community.
 
-נוצר ❤️ עבור קהילת המפתחים דוברי העברית ולשימוש נח בלוח העברי.
+<p dir="rtl">נוצר ❤️ עבור קהילת המפתחים דוברי העברית ולשימוש נח בלוח העברי.</p>
