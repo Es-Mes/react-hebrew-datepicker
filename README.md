@@ -16,7 +16,7 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 🚀 **[Try the Live Demo / נסו את הדמו החי](https://es-mes.github.io/react-hebrew-datepicker/)**
 
 
-<table>
+<table cellpadding="12">
   <tr>
     <td>
       <img src="screenshots/demo.gif" alt="Hebrew DatePicker Demo" width="330" />
