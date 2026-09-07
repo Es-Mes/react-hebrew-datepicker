@@ -5,7 +5,95 @@ import { HDate } from "@hebcal/core";
 import './HebrewDatePicker.css';
 import CalendarPopup from "./CalendarPopup";
 
-const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label = "בחר תאריך", usePortal = false, dir = "rtl" }) => {
+const DEFAULT_LABELS = {
+  placeholder: "בחר תאריך עברי",
+  today: "היום",
+  clear: "נקה",
+  nextMonth: "חודש הבא",
+  prevMonth: "חודש קודם",
+};
+
+const THEME_VARS = [
+  "--rhdp-primary",
+  "--rhdp-on-primary",
+  "--rhdp-surface",
+  "--rhdp-text",
+  "--rhdp-muted",
+  "--rhdp-border",
+  "--rhdp-day-border",
+  "--rhdp-divider",
+  "--rhdp-disabled-bg",
+  "--rhdp-disabled-text",
+  "--rhdp-font",
+  "--rhdp-shadow",
+  "--rhdp-radius",
+  "--rhdp-gregorian",
+  "--rhdp-gregorian-bar",
+];
+
+const POPUP_WIDTH = 320;
+const POPUP_GAP = 8;
+const FALLBACK_POPUP_HEIGHT = 380;
+
+const readThemeVars = (element) => {
+  if (!element) return {};
+  const computed = getComputedStyle(element);
+  const style = {};
+  THEME_VARS.forEach((name) => {
+    const value = computed.getPropertyValue(name).trim();
+    if (value) style[name] = value;
+  });
+  return style;
+};
+
+const computeCalendarPosition = (inputEl, popupEl, usePortal, popupWidth = POPUP_WIDTH) => {
+  const rect = inputEl.getBoundingClientRect();
+  const height = popupEl?.offsetHeight || FALLBACK_POPUP_HEIGHT;
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+  const openAbove = spaceBelow < height + POPUP_GAP && spaceAbove > spaceBelow;
+
+  if (!usePortal) {
+    return openAbove
+      ? { top: "auto", bottom: `calc(100% + ${POPUP_GAP}px)`, left: 0 }
+      : { top: `calc(100% + ${POPUP_GAP}px)`, bottom: "auto", left: 0 };
+  }
+
+  let left = rect.left + window.scrollX + (rect.width - popupWidth) / 2;
+  const minLeft = window.scrollX + 10;
+  const maxLeft = window.scrollX + window.innerWidth - popupWidth - 10;
+  left = Math.max(minLeft, Math.min(left, maxLeft));
+
+  return {
+    top: openAbove
+      ? rect.top + window.scrollY - height - POPUP_GAP
+      : rect.bottom + window.scrollY + POPUP_GAP,
+    bottom: "auto",
+    left,
+  };
+};
+
+const HebrewDatePicker = ({
+  name,
+  value,
+  defaultValue,
+  onChange,
+  required,
+  label,
+  usePortal = false,
+  dir = "rtl",
+  disabled = false,
+  labels,
+  minDate,
+  maxDate,
+  isDateDisabled,
+  className,
+  popupClassName,
+  showGregorian = false,
+}) => {
+  const resolvedLabel = label === undefined ? "בחר תאריך" : label;
+  const showLabel = typeof resolvedLabel === "string";
+  const mergedLabels = { ...DEFAULT_LABELS, ...labels };
   // Support both controlled and uncontrolled modes
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = useState(defaultValue || '');
@@ -20,8 +108,15 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
 
   const popupRef = useRef(null);
   const inputRef = useRef();
+  const rootRef = useRef(null);
+  const [themeStyle, setThemeStyle] = useState({});
 
   const [transitionDirection, setTransitionDirection] = useState("forward");
+
+  const toggleCalendar = () => {
+    if (disabled) return;
+    setShowCalendar((v) => !v);
+  };
 
   // Update selectedHDate when value changes (for controlled mode)
   useEffect(() => {
@@ -63,21 +158,75 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
   }, []);
 
   useEffect(() => {
-    if (showCalendar && inputRef.current) {
-      const rect = inputRef.current.getBoundingClientRect();
-      const calendarWidth = 320; // Width defined in CalendarPopup
-      const leftPosition = rect.left + window.scrollX + (rect.width - calendarWidth) / 2;
-
-      setCalendarPos({
-        top: rect.bottom + window.scrollY + 8,
-        left: Math.max(10, leftPosition), // Ensure it doesn't go off-screen
-      });
+    if (disabled) {
+      setShowCalendar(false);
+      setShowMonthYearPicker(false);
     }
-  }, [showCalendar]);
+  }, [disabled]);
+
+  useEffect(() => {
+    if (rootRef.current) {
+      setThemeStyle(readThemeVars(rootRef.current));
+    }
+  }, [className, showCalendar]);
+
+  useEffect(() => {
+    if (!showCalendar || !inputRef.current) return undefined;
+
+    const updatePosition = () => {
+      setCalendarPos(computeCalendarPosition(
+        inputRef.current,
+        popupRef.current,
+        usePortal,
+        showGregorian ? 368 : POPUP_WIDTH,
+      ));
+    };
+
+    updatePosition();
+    const frame = requestAnimationFrame(updatePosition);
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [showCalendar, showMonthYearPicker, usePortal, showGregorian]);
+
+  const calendarProps = {
+    popupRef,
+    currentHDate,
+    selectedHDate,
+    onChange: handleDateChange,
+    setShowCalendar,
+    setCurrentHDate,
+    setShowMonthYearPicker,
+    showMonthYearPicker,
+    transitionDirection,
+    setTransitionDirection,
+    name,
+    labels: mergedLabels,
+    minDate,
+    maxDate,
+    isDateDisabled,
+    popupClassName,
+    themeStyle,
+    showGregorian,
+    dir,
+  };
 
   return (
-    <div style={{ position: "relative", maxWidth: 360, margin: "auto", fontFamily: "Arial, sans-serif" }} dir={dir}>
-      <label htmlFor={name} style={{ display: "block", marginBottom: 6 }}>{label}{required && " *"}</label>
+    <div
+      ref={rootRef}
+      className={["rhdp", className].filter(Boolean).join(" ")}
+      style={{ position: "relative", maxWidth: 360, margin: "auto", fontFamily: "var(--rhdp-font, Arial, sans-serif)" }}
+      dir={dir}
+    >
+      {showLabel && (
+        <label htmlFor={name} style={{ display: "block", marginBottom: 6 }}>
+          {resolvedLabel}{required && " *"}
+        </label>
+      )}
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <input
           ref={inputRef}
@@ -86,51 +235,52 @@ const HebrewDatePicker = ({ name, value, defaultValue, onChange, required, label
           name={name}
           readOnly
           required={required}
+          disabled={disabled}
+          aria-disabled={disabled}
           value={currentValue ? formatHebrewDate(selectedHDate) : ""}
-          placeholder="בחר תאריך עברי"
-          style={{ padding: 10, borderRadius: 5, border: "1px solid #ccc", width: "100%", backgroundColor: "white", color: "#444", fontWeight: "bold", cursor: "default" }}
-          onClick={() => setShowCalendar((v) => !v)}
+          placeholder={mergedLabels.placeholder}
+          style={{
+            padding: 10,
+            borderRadius: 5,
+            width: "100%",
+            backgroundColor: disabled ? "var(--rhdp-disabled-bg, #f3f4f6)" : "var(--rhdp-surface, white)",
+            color: disabled ? "var(--rhdp-disabled-text, #9ca3af)" : "var(--rhdp-text, #444)",
+            fontWeight: "bold",
+            cursor: disabled ? "not-allowed" : "default",
+            border: "1px solid var(--rhdp-border, #ccc)",
+          }}
+          onClick={toggleCalendar}
         />
         <button
-          onClick={() => setShowCalendar((v) => !v)}
+          onClick={toggleCalendar}
           type="button"
-          style={{ cursor: "pointer", padding: 8, color: "#4da6ff", border: "none", borderRadius: 6, background: "none", fontSize: 22 }}
+          disabled={disabled}
+          aria-disabled={disabled}
+          style={{
+            cursor: disabled ? "not-allowed" : "pointer",
+            padding: 8,
+            color: disabled ? "var(--rhdp-disabled-text, #9ca3af)" : "var(--rhdp-primary, #4da6ff)",
+            border: "none",
+            borderRadius: 6,
+            background: "none",
+            fontSize: 22,
+          }}
         ><IoCalendarOutline /></button>
       </div>
 
-      {showCalendar && (
+      {showCalendar && !disabled && (
         usePortal
           ? createPortal(
             <CalendarPopup
-              popupRef={popupRef}
+              {...calendarProps}
               calendarPos={calendarPos}
-              currentHDate={currentHDate}
-              selectedHDate={selectedHDate}
-              onChange={handleDateChange}
-              setShowCalendar={setShowCalendar}
-              setCurrentHDate={setCurrentHDate}
-              setShowMonthYearPicker={setShowMonthYearPicker}
-              showMonthYearPicker={showMonthYearPicker}
-              transitionDirection={transitionDirection}
-              setTransitionDirection={setTransitionDirection}
-              name={name}
             />,
             document.body
           )
           :
           <CalendarPopup
-            popupRef={popupRef}
-            calendarPos={{ top: "calc(100% + 8px)", left: 0 }}
-            currentHDate={currentHDate}
-            selectedHDate={selectedHDate}
-            onChange={handleDateChange}
-            setShowCalendar={setShowCalendar}
-            setCurrentHDate={setCurrentHDate}
-            setShowMonthYearPicker={setShowMonthYearPicker}
-            showMonthYearPicker={showMonthYearPicker}
-            transitionDirection={transitionDirection}
-            setTransitionDirection={setTransitionDirection}
-            name={name}
+            {...calendarProps}
+            calendarPos={calendarPos}
           />
 
       )}

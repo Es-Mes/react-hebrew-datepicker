@@ -16,24 +16,50 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 🚀 **[Try the Live Demo / נסו את הדמו החי](https://es-mes.github.io/react-hebrew-datepicker/)**
 
 
-![Hebrew DatePicker Demo](screenshots/demo.gif)
+<table cellpadding="12">
+  <tr>
+    <td>
+      <img src="screenshots/demo.gif" alt="Hebrew DatePicker Demo" width="330" />
+    </td>
+    <td>
+      <img src="screenshots/show-gregorian.png" alt="Shared Hebrew + Gregorian calendar" width="330" />
+    </td>
+  </tr>
+</table>
 
-*Interactive Hebrew date picker with Gregorian conversion*
+*New in 1.1: shared Hebrew + Gregorian display (`showGregorian`)*
+
+## Recommended from 1.1 / מומלץ מגרסה 1.1
+
+**Starting in 1.1, use the shared Hebrew + Gregorian calendar for new forms.**  
+מגרסה **1.1** מומלץ להציג לוח משותף: רשת עברית, מספר לועזי בכל תא, ופס חודש/שנה לועזיים.
+
+Enable it with `showGregorian`. The default stays `false` so existing 1.0 calendars keep their look.
+
+```jsx
+<HebrewDatePicker
+  name="hebrewDate"
+  value={selectedDate}
+  onChange={handleDateChange}
+  label="בחר תאריך"
+  showGregorian
+/>
+```
 
 ## Features / תכונות
 
 - 📅 **Hebrew Calendar Support** - Full Hebrew calendar with proper month and year calculations
-- 🔄 **Gregorian Conversion** - Automatic conversion between Hebrew and Gregorian dates
-- 🎨 **Beautiful UI** - Modern and clean design with smooth animations
-- 📱 **Responsive** - Works perfectly on desktop and mobile devices
-- 🌐 **RTL Support** - Right-to-left layout support for Hebrew text
-- ⚡ **Lightweight** - Minimal dependencies and optimized performance
-- 🎯 **TypeScript Support** - Full TypeScript definitions included
-- 🎪 **Portal Support** - Optional rendering outside component tree
+- ⭐ **Shared Hebrew + Gregorian display (new in 1.1)** — recommended for new forms (`showGregorian`)
+- 🎨 **CSS variable theming** - Override `--rhdp-primary` without `!important`
+- 🔒 **Form-friendly** - `disabled`, `minDate` / `maxDate`, `isDateDisabled`, hide built-in label
+- 🌐 **RTL by default** - `dir` also applies to the portal popup
+- 🎯 **TypeScript Support** - Definitions include all public props
+- 🎪 **Portal Support** - Optional rendering outside overflow containers
 
 ## Installation / התקנה
 
 ```bash
+npm install react-hebrew-datepicker
 # or
 yarn add react-hebrew-datepicker
 ```
@@ -73,6 +99,7 @@ function App() {
         value={selectedDate}
         onChange={handleDateChange}
         label="בחר תאריך עברי"
+        showGregorian
         required
       />
     </div>
@@ -177,13 +204,21 @@ function UserForm() {
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `name` | `string` | **required** | The name attribute for the input field |
-| `value` | `string` | `undefined` | Current value as ISO date string (YYYY-MM-DD) - for controlled mode |
-| `defaultValue` | `string` | `undefined` | Initial value as ISO date string (YYYY-MM-DD) - for uncontrolled mode |
-| `onChange` | `function` | `undefined` | Callback when date changes: `(event) => void` |
+| `value` | `string` | `undefined` | Current value as ISO `YYYY-MM-DD` (controlled) |
+| `defaultValue` | `string` | `undefined` | Initial value as ISO `YYYY-MM-DD` (uncontrolled) |
+| `onChange` | `function` | `undefined` | `(event) => void` — `event.target.value` is ISO `YYYY-MM-DD` |
 | `required` | `boolean` | `false` | Whether the field is required |
-| `label` | `string` | `"בחר תאריך"` | Label text for the input field |
-| `usePortal` | `boolean` | `false` | Render calendar popup using React Portal |
-| `dir` | `string` | `"rtl"` | Text direction for the component (`"rtl"` or `"ltr"`). Controls only the date picker, not the whole page. |
+| `label` | `string \| null` | `"בחר תאריך"` | Built-in label. Pass `null` to hide it (when the form already has a label) |
+| `disabled` | `boolean` | `false` | Locks the field; the calendar does not open |
+| `labels` | `object` | Hebrew defaults | Override UI strings: `placeholder`, `today`, `clear`, `nextMonth`, `prevMonth`, `gregorianMonths` |
+| `minDate` | `string` | `undefined` | Inclusive minimum ISO date. Also expands the year list |
+| `maxDate` | `string` | `undefined` | Inclusive maximum ISO date. Also expands the year list |
+| `isDateDisabled` | `function` | `undefined` | `(isoDate) => boolean` — block specific days in the grid |
+| `showGregorian` | `boolean` | `false` | Hebrew grid + Gregorian day numbers and month/year bar |
+| `usePortal` | `boolean` | `false` | Render the calendar with a React Portal (needed inside `overflow: hidden`) |
+| `dir` | `"rtl" \| "ltr"` | `"rtl"` | Direction of this picker only, including the portal popup |
+| `className` | `string` | `undefined` | Extra class on the field wrapper (set CSS variables here) |
+| `popupClassName` | `string` | `undefined` | Extra class on the calendar popup |
 
 ### Usage Modes / מצבי שימוש
 
@@ -199,25 +234,49 @@ const [date, setDate] = useState('');
 ```
 
 
-### Customizing the Main Color
+### Theming / ערכת צבעים
 
-The main color for selected dates and highlights is always `#4da6ff` by default.
-
-If you want to use a different color, you can override it in your own CSS by targeting the relevant classes, for example:
+Default accent is `#4da6ff`. Override CSS variables on `className` (works with Portal too):
 
 ```css
-.date-picker-day.selected,
-.month-year-picker div:hover,
-.tooltip-text,
-.date-picker-day:hover {
-  background-color: #yourColor !important;
-  border-color: #yourColor !important;
+.my-datepicker {
+  --rhdp-primary: #1677ff;
 }
 ```
 
-> By default, the color is always `#4da6ff`. You can override it as shown above if you want a different look.
+```jsx
+<HebrewDatePicker className="my-datepicker" showGregorian />
+```
 
-If you need more advanced theming, feel free to open an issue or contribute!
+Useful variables: `--rhdp-primary`, `--rhdp-on-primary`, `--rhdp-surface`, `--rhdp-text`, `--rhdp-border`, `--rhdp-font`, `--rhdp-shadow`, `--rhdp-radius`, `--rhdp-gregorian`, `--rhdp-gregorian-bar`.
+
+`popupClassName` styles the opened calendar when it is rendered with `usePortal` (outside the field wrapper).
+
+### Form examples / דוגמאות טופס
+
+Birth date (no future dates; year list follows the range):
+
+```jsx
+<HebrewDatePicker
+  name="birthDate"
+  value={birthDate}
+  onChange={handleDateChange}
+  label="תאריך לידה"
+  minDate="1940-01-01"
+  maxDate={todayIso}
+  showGregorian
+/>
+```
+
+Hide the built-in label when the form already renders one:
+
+```jsx
+<HebrewDatePicker name="date" value={date} onChange={onChange} label={null} />
+```
+
+Without `minDate` / `maxDate`, the year picker stays at ±30 around the displayed year (same as 1.0.x).
+
+The calendar opens below the field when there is room, and above when there is not. Use `usePortal` inside a Drawer / `overflow: hidden` parent.
 
 ## Dependencies / תלויות
 
@@ -247,8 +306,9 @@ git clone https://github.com/Es-Mes/react-hebrew-datepicker.git
 # Install dependencies
 npm install
 
-# Start development
-npm run dev
+# Watch the package and open the local demo
+npm run demo:install
+npm run demo:watch
 
 # Build for production
 npm run build
@@ -258,48 +318,7 @@ npm run build
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## Changelog / יומן שינויים
-
-### v1.0.7
-- Fixed: Calendar navigation and day buttons no longer trigger form submit (added type="button" to all calendar buttons)
-
-### v1.0.6
-- Fixed calendar popup positioning for better centering
-- Improved year picker UX - now opens at current year instead of start of list
-- Enhanced calendar positioning to be more user-friendly
-- Better responsive behavior for calendar popup
-
-### v1.0.5
-- Fixed calendar popup positioning for better centering
-- Improved year picker UX - now opens at current year instead of start of list
-- Enhanced calendar positioning to be more user-friendly
-- Better responsive behavior for calendar popup
-
-### v1.0.4
-- Added support for uncontrolled mode with `defaultValue` prop
-- Component now manages internal state when `value` is not provided
-- Improved flexibility - supports both controlled and uncontrolled usage patterns
-- Enhanced user experience - date picker works immediately without external state management
-
-### v1.0.3
-- Enhanced tooltips for calendar navigation ("Previous Month", "Next Month")
-- Improved CSS styling with custom CSS variables support
-- Better user experience and accessibility
-
-### v1.0.2
-- Fixed Hebrew date formatting display
-- Improved build configuration and bundle optimization
-
-### v1.0.1
-- Initial bug fixes and improvements
-
-### v1.0.0
-- Initial release
-- Hebrew calendar support
-- Gregorian conversion  
-- TypeScript definitions
-- Portal support
-- RTL layout
+See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## Support / תמיכה
 
@@ -312,33 +331,3 @@ If you have any issues or questions, please open an issue on [GitHub](https://gi
 Made with ❤️ for the Hebrew-speaking developer community.
 
 נוצר ❤️ עבור קהילת המפתחים דוברי העברית ולשימוש נח בלוח העברי.
-
-### Importing the CSS
-
-To get the full default styling, make sure to import the CSS file in your app's entry point (e.g. App.js or index.js):
-
-```js
-import 'react-hebrew-datepicker/dist/styles.css';
-```
-
-If you do not import this file, the date picker will render without styles.
-
----
-
-### RTL/LTR Direction Control
-
-By default, the date picker renders in right-to-left (`rtl`) mode for Hebrew. You can override this for a specific picker by passing the `dir` prop:
-
-```jsx
-<HebrewDatePicker dir="ltr" />
-```
-
-This will affect only the component, not your whole page.
-
----
-
-### Basic Styling and Fallback
-
-The day buttons have a minimal inline style (minWidth, minHeight, background color) to ensure they always look good and don't "escape" their grid, even if the CSS is not loaded. For best appearance, always import the CSS as shown below.
-
----

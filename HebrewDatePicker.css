@@ -1,38 +1,160 @@
 .calendar-popup {
   z-index: 9999 !important;
-  /* גבוה יותר מכל modal רגיל */
 }
 
+.rhdp-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rhdp-footer-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2;
+  cursor: pointer;
+  background: var(--rhdp-primary, #4da6ff);
+  color: var(--rhdp-on-primary, #ffffff);
+  text-decoration: none;
+}
+
+.rhdp-footer-btn:disabled {
+  background: var(--rhdp-disabled-bg, #f3f4f6);
+  color: var(--rhdp-disabled-text, #9ca3af);
+  cursor: not-allowed;
+}
+
+.rhdp-calendar-body {
+  position: relative;
+  min-height: 220px;
+}
+
+.rhdp-month-year-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--rhdp-surface, #ffffff);
+  z-index: 2;
+  overflow: hidden;
+}
+
+.rhdp-month-year-column {
+  flex: 1 1 0;
+  min-width: 0;
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: block;
+}
+
+.rhdp-gregorian-bar {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--rhdp-gregorian-bar, #eef1f4);
+  color: var(--rhdp-muted, #555555);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.rhdp-gregorian-day {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--rhdp-gregorian, #9aa3ad);
+  line-height: 1;
+}
+
+.date-picker-day.selected .rhdp-gregorian-day {
+  color: var(--rhdp-on-primary, #ffffff);
+  opacity: 0.85;
+}
+
+.date-picker-day.rhdp-day-dual {
+  position: relative;
+  width: 100%;
+  min-width: 42px;
+  min-height: 42px;
+  height: 42px;
+  padding: 0;
+}
+
+.rhdp-day-dual .rhdp-hebrew-day {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rhdp-day-dual .rhdp-gregorian-day {
+  position: absolute;
+  bottom: 6px;
+  left: 7px;
+  font-size: 10px;
+  font-weight: 700;
+}
 
 .date-picker-day {
   padding: 8px;
   border-radius: 8px;
-  border: 1px solid #dbd1d1;
-  background-color: white;
-  color: #444;
+  border: 1px solid var(--rhdp-day-border, #dbd1d1);
+  background-color: #ffffff;
+  background-color: var(--rhdp-surface, #ffffff);
+  color: var(--rhdp-text, #444);
   cursor: pointer;
   font-size: 14px;
   transition: 0.2s;
+  line-height: 1.1;
 }
 
 
 .date-picker-day:hover {
-  border: 1.5px solid #4da6ff;
+  border: 1.5px solid var(--rhdp-primary, #4da6ff);
 }
 
 
 .date-picker-day.selected {
-  background-color: #4da6ff;
-  color: white;
+  background-color: var(--rhdp-primary, #4da6ff);
+  color: var(--rhdp-on-primary, #ffffff);
 }
 
-.month-year-picker div {
-  transition: background-color 0.2s, color 0.2s;
+.date-picker-day:disabled,
+.date-picker-day.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background-color: var(--rhdp-disabled-bg, #f3f4f6);
 }
 
-.month-year-picker div:hover {
-  background-color: #4da6ff;
-  color: white;
+.date-picker-day:disabled:hover,
+.date-picker-day.disabled:hover {
+  border: 1px solid var(--rhdp-day-border, #dbd1d1);
+}
+
+.month-year-picker .rhdp-picker-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.month-year-picker .rhdp-picker-item:hover {
+  border-color: var(--rhdp-primary, #4da6ff);
 }
 
 @keyframes slideLeft {
@@ -67,20 +189,11 @@
   animation: slideRight 0.4s ease-in-out;
 }
 
-.arrowBtn .next {
-  top: 15%;
-  right: 80% !important;
-}
-
-.arrowBtn .prev {
-  top: 15%;
-  right: 90% !important;
-}
-
-.arrowBtn:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-  right: 80% !important;
+.arrowBtn .tooltip-text.next,
+.arrowBtn .tooltip-text.prev {
+  top: calc(100% + 4px);
+  right: 50%;
+  left: auto;
 }
 
 /* Tooltip Styles */
@@ -130,12 +243,5 @@
   .icon-tooltip:active .tooltip-text {
     visibility: visible;
     opacity: 1;
-  }
-
-  .tooltip-text {
-    visibility: visible;
-    opacity: 0.7;
-    font-size: 10px;
-    padding: 2px 4px;
   }
 }
