@@ -78,8 +78,12 @@
   line-height: 1;
 }
 
-.date-picker-day.selected .rhdp-gregorian-day {
+.date-picker-day.selected .rhdp-gregorian-day,
+.date-picker-day.selected .rhdp-hebrew-day {
   color: var(--rhdp-on-primary, #ffffff);
+}
+
+.date-picker-day.selected .rhdp-gregorian-day {
   opacity: 0.85;
 }
 

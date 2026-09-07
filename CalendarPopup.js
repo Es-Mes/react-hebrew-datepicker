@@ -189,7 +189,12 @@ const CalendarPopup = ({
         setShowCalendar(false);
     };
 
-    const todayIso = new HDate().greg().toISOString().slice(0, 10);
+    const todayHDate = new HDate();
+    const todayIso = hebrewDayToIso(
+        todayHDate.getDate(),
+        todayHDate.getMonth(),
+        todayHDate.getFullYear()
+    );
     const todayBlocked = isIsoDisabled(todayIso, minDate, maxDate, isDateDisabled);
     const selectableYears = getSelectableYears(currentHDate.getFullYear(), minDate, maxDate);
     const focusGregorian = gregorianDateForHebrewDay(1, currentHDate.getMonth(), currentHDate.getFullYear());
@@ -433,8 +438,16 @@ const CalendarPopup = ({
                                 style={{
                                     minWidth: showGregorian ? 42 : 36,
                                     minHeight: showGregorian ? 42 : 36,
-                                    backgroundColor: dayDisabled ? 'var(--rhdp-disabled-bg, #f3f4f6)' : 'var(--rhdp-surface, #ffffff)',
-                                    color: isSelected ? 'var(--rhdp-on-primary, #fff)' : 'var(--rhdp-text, #444)',
+                                    backgroundColor: dayDisabled
+                                        ? 'var(--rhdp-disabled-bg, #f3f4f6)'
+                                        : isSelected
+                                            ? 'var(--rhdp-primary, #4da6ff)'
+                                            : 'var(--rhdp-surface, #ffffff)',
+                                    color: dayDisabled
+                                        ? 'var(--rhdp-disabled-text, #9ca3af)'
+                                        : isSelected
+                                            ? 'var(--rhdp-on-primary, #ffffff)'
+                                            : 'var(--rhdp-text, #444)',
                                     borderRadius: 8,
                                     fontSize: 14,
                                     cursor: dayDisabled ? 'not-allowed' : 'pointer',
@@ -460,8 +473,7 @@ const CalendarPopup = ({
                         className="rhdp-footer-btn"
                         disabled={todayBlocked}
                         onClick={() => {
-                            const today = new HDate();
-                            setCurrentHDate(today);
+                            setCurrentHDate(todayHDate);
                             if (todayBlocked) return;
                             onChange?.({ target: { name, value: todayIso } });
                             setShowCalendar(false);
