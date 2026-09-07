@@ -4,12 +4,14 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 
 <p dir="rtl">קומפוננטה יפה ופונקציונלית לבחירת תאריכים עבריים ב-React עם תמיכה מלאה בלוח העברי והמרה ללוח הגרגוריאני.</p>
 
-<p>
-  <a href="https://www.npmjs.com/package/react-hebrew-datepicker"><img src="https://img.shields.io/npm/v/react-hebrew-datepicker.png" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/react-hebrew-datepicker"><img src="https://img.shields.io/npm/dm/react-hebrew-datepicker.png" alt="npm downloads" /></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.png" alt="License: MIT" /></a>
-  <a href="https://bundlephobia.com/package/react-hebrew-datepicker"><img src="https://img.shields.io/bundlephobia/min/react-hebrew-datepicker.png" alt="Bundle Size" /></a>
-  <a href="https://github.com/Es-Mes/react-hebrew-datepicker"><img src="https://img.shields.io/github/stars/Es-Mes/react-hebrew-datepicker.png?style=social&label=Star" alt="GitHub stars" /></a>
+<p align="right">
+  <a href="https://www.npmjs.com/package/react-hebrew-datepicker">npm</a>
+  ·
+  <a href="https://github.com/Es-Mes/react-hebrew-datepicker">GitHub</a>
+  ·
+  <a href="https://opensource.org/licenses/MIT">MIT License</a>
+  ·
+  <a href="https://es-mes.github.io/react-hebrew-datepicker/">Live demo</a>
 </p>
 
 <h2 align="right">Demo / דמו</h2>
