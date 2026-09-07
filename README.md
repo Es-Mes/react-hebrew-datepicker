@@ -11,9 +11,9 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 🚀 **[Try the Live Demo / נסו את הדמו החי](https://es-mes.github.io/react-hebrew-datepicker/)**
 
 
-|     |     |
-| --- | --- |
-|     |     |
+| | |
+|:---:|:---:|
+| <img src="https://raw.githubusercontent.com/Es-Mes/react-hebrew-datepicker/main/screenshots/demo.gif" alt="Hebrew DatePicker Demo" width="330" /> | <img src="https://raw.githubusercontent.com/Es-Mes/react-hebrew-datepicker/main/screenshots/show-gregorian.png" alt="Shared Hebrew + Gregorian calendar" width="330" /> |
 
 
 *New in 1.1: shared Hebrew + Gregorian display (`showGregorian`)*
