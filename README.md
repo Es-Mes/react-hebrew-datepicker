@@ -19,10 +19,10 @@ A beautiful and functional Hebrew date picker component for React with full Hebr
 <table cellpadding="12">
   <tr>
     <td>
-      <img src="screenshots/demo.gif" alt="Hebrew DatePicker Demo" width="330" />
+      <img src="https://raw.githubusercontent.com/Es-Mes/react-hebrew-datepicker/main/screenshots/demo.gif" alt="Hebrew DatePicker Demo" width="330" />
     </td>
     <td>
-      <img src="screenshots/show-gregorian.png" alt="Shared Hebrew + Gregorian calendar" width="330" />
+      <img src="https://raw.githubusercontent.com/Es-Mes/react-hebrew-datepicker/main/screenshots/show-gregorian.png" alt="Shared Hebrew + Gregorian calendar" width="330" />
     </td>
   </tr>
 </table>
