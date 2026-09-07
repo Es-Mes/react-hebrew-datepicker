@@ -96,7 +96,6 @@ function App() {
                 label="תאריך לידה"
                 minDate="1940-01-01"
                 maxDate={todayIso}
-                showGregorian
               />
               <SelectedDate value={birthDate} />
             </div>
@@ -114,7 +113,6 @@ function App() {
                 onChange={(event) => setThemeDate(event.target.value)}
                 label="תאריך עם צבע מותאם"
                 className="rhdp-theme-green"
-                showGregorian
                 usePortal
               />
               <SelectedDate value={themeDate} />
@@ -152,7 +150,6 @@ function App() {
                 value={externalLabelDate}
                 onChange={(event) => setExternalLabelDate(event.target.value)}
                 label={null}
-                showGregorian
               />
             </div>
           </section>
@@ -171,7 +168,6 @@ function App() {
               dir="ltr"
               usePortal
               label="Appointment date"
-              showGregorian
               labels={{
                 placeholder: 'Select a Hebrew date',
                 today: 'Today',
