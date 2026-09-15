@@ -31,7 +31,7 @@ const THEME_VARS = [
   "--rhdp-gregorian-bar",
 ];
 
-const POPUP_WIDTH = 320;
+const POPUP_WIDTH = 272;
 const GREGORIAN_POPUP_WIDTH = 280;
 const POPUP_GAP = 8;
 const FALLBACK_POPUP_HEIGHT = 380;

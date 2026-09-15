@@ -231,8 +231,8 @@ const CalendarPopup = ({
                     backgroundColor: "var(--rhdp-surface, white)",
                     borderRadius: "var(--rhdp-radius, 12px)",
                     boxShadow: "var(--rhdp-shadow, 0 4px 15px rgba(0,0,0,0.3))",
-                    padding: showGregorian ? "10px 12px" : 16,
-                    width: showGregorian ? 280 : 320,
+                    padding: showGregorian ? "10px 12px" : 12,
+                    width: showGregorian ? 280 : 272,
                     maxHeight: "min(90vh, 520px)",
                     overflow: "hidden",
                     boxSizing: "border-box",
@@ -241,7 +241,7 @@ const CalendarPopup = ({
                     ...themeStyle,
                 }}
             >
-                <div style={{ marginBottom: showGregorian ? 6 : 10, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
+                <div style={{ marginBottom: showGregorian ? 6 : 8, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h3
                         style={{ margin: 0, fontSize: 16, color: "var(--rhdp-primary, #4da6ff)", cursor: "pointer" }}
@@ -264,7 +264,7 @@ const CalendarPopup = ({
                                 fontSize: 18,
                                 cursor: "pointer",
                                 color: "var(--rhdp-primary, #4da6ff)",
-                                padding: showGregorian ? "4px" : "8px"
+                                padding: showGregorian ? "4px" : "6px"
                             }}
                         >
                             <IoArrowDown />
@@ -285,7 +285,7 @@ const CalendarPopup = ({
                                 fontSize: 18,
                                 cursor: "pointer",
                                 color: "var(--rhdp-primary, #4da6ff)",
-                                padding: showGregorian ? "4px" : "8px"
+                                padding: showGregorian ? "4px" : "6px"
                             }}
                         >
                             <IoArrowUp />
@@ -411,7 +411,7 @@ const CalendarPopup = ({
                 )}
 
                 <div key={currentHDate.toString()} className={`calendar-days ${transitionDirection === "forward" ? "slide-right" : "slide-left"}`}
-                    style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: showGregorian ? 2 : 6, textAlign: "center" }}>
+                    style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: showGregorian ? 2 : 3, textAlign: "center" }}>
 
                     {daysOfWeek.map((d) => (
                         <div key={d} style={{ fontWeight: "bold", color: "var(--rhdp-primary, #4da6ff)" }}>{d}</div>
@@ -436,8 +436,8 @@ const CalendarPopup = ({
                                 onClick={() => handleSelect(day)}
                                 className={`date-picker-day${isSelected ? " selected" : ""}${dayDisabled ? " disabled" : ""}${showGregorian ? " rhdp-day-dual" : ""}`}
                                 style={{
-                                    minWidth: showGregorian ? 34 : 36,
-                                    minHeight: showGregorian ? 34 : 36,
+                                    minWidth: showGregorian ? 34 : 32,
+                                    minHeight: showGregorian ? 34 : 32,
                                     backgroundColor: dayDisabled
                                         ? 'var(--rhdp-disabled-bg, #f3f4f6)'
                                         : isSelected
@@ -451,7 +451,7 @@ const CalendarPopup = ({
                                     borderRadius: 8,
                                     fontSize: 14,
                                     cursor: dayDisabled ? 'not-allowed' : 'pointer',
-                                    padding: showGregorian ? 0 : 8,
+                                    padding: showGregorian ? 0 : 6,
                                     transition: 'border .2s,background .2s,color .2s',
                                     boxSizing: 'border-box',
                                     margin: 0

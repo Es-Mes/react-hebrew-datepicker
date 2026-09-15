@@ -6,14 +6,14 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .rhdp-footer-btn {
   border: none;
   border-radius: 8px;
-  padding: 6px 14px;
-  font-size: 15px;
+  padding: 5px 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.2;
   cursor: pointer;
@@ -30,7 +30,7 @@
 
 .rhdp-calendar-body {
   position: relative;
-  min-height: 220px;
+  min-height: 200px;
 }
 
 .rhdp-popup-gregorian .rhdp-calendar-body {
@@ -134,7 +134,7 @@
 }
 
 .date-picker-day {
-  padding: 8px;
+  padding: 6px;
   border-radius: 8px;
   border: 1px solid var(--rhdp-day-border, #dbd1d1);
   background-color: #ffffff;
