@@ -33,6 +33,26 @@
   min-height: 220px;
 }
 
+.rhdp-popup-gregorian .rhdp-calendar-body {
+  min-height: 0;
+}
+
+.rhdp-popup-gregorian .rhdp-footer-actions {
+  margin-top: 8px;
+}
+
+.rhdp-popup-gregorian .rhdp-footer-btn {
+  padding: 4px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.rhdp-popup-gregorian .rhdp-gregorian-bar {
+  margin: 4px 0 0;
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
 .rhdp-month-year-overlay {
   position: absolute;
   inset: 0;
@@ -58,14 +78,14 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  margin: 8px 0 0;
-  padding: 8px 10px;
+  margin: 6px 0 0;
+  padding: 6px 8px;
   border: none;
   border-radius: 8px;
   background: var(--rhdp-gregorian-bar, #eef1f4);
   color: var(--rhdp-muted, #555555);
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.3;
   text-align: center;
@@ -90,25 +110,25 @@
 .date-picker-day.rhdp-day-dual {
   position: relative;
   width: 100%;
-  min-width: 42px;
-  min-height: 42px;
-  height: 42px;
+  min-width: 34px;
+  min-height: 34px;
+  height: 34px;
   padding: 0;
 }
 
 .rhdp-day-dual .rhdp-hebrew-day {
   position: absolute;
-  top: 6px;
-  right: 7px;
-  font-size: 13px;
+  top: 3px;
+  right: 4px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1;
 }
 
 .rhdp-day-dual .rhdp-gregorian-day {
   position: absolute;
-  bottom: 6px;
-  left: 7px;
+  bottom: 3px;
+  left: 4px;
   font-size: 10px;
   font-weight: 700;
 }

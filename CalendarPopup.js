@@ -221,7 +221,7 @@ const CalendarPopup = ({
             <div style={{ position: "fixed", inset: 0, zIndex: 3000 }} onClick={() => setShowCalendar(false)} />
             <div
                 ref={popupRef}
-                className={["rhdp-popup", "calendar-popup", popupClassName].filter(Boolean).join(" ")}
+                className={["rhdp-popup", "calendar-popup", showGregorian && "rhdp-popup-gregorian", popupClassName].filter(Boolean).join(" ")}
                 dir={dir}
                 style={{
                     position: "absolute",
@@ -231,8 +231,8 @@ const CalendarPopup = ({
                     backgroundColor: "var(--rhdp-surface, white)",
                     borderRadius: "var(--rhdp-radius, 12px)",
                     boxShadow: "var(--rhdp-shadow, 0 4px 15px rgba(0,0,0,0.3))",
-                    padding: 16,
-                    width: showGregorian ? 368 : 320,
+                    padding: showGregorian ? "10px 12px" : 16,
+                    width: showGregorian ? 280 : 320,
                     maxHeight: "min(90vh, 520px)",
                     overflow: "hidden",
                     boxSizing: "border-box",
@@ -241,7 +241,7 @@ const CalendarPopup = ({
                     ...themeStyle,
                 }}
             >
-                <div style={{ marginBottom: 10, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
+                <div style={{ marginBottom: showGregorian ? 6 : 10, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h3
                         style={{ margin: 0, fontSize: 16, color: "var(--rhdp-primary, #4da6ff)", cursor: "pointer" }}
@@ -264,7 +264,7 @@ const CalendarPopup = ({
                                 fontSize: 18,
                                 cursor: "pointer",
                                 color: "var(--rhdp-primary, #4da6ff)",
-                                padding: "8px"
+                                padding: showGregorian ? "4px" : "8px"
                             }}
                         >
                             <IoArrowDown />
@@ -285,7 +285,7 @@ const CalendarPopup = ({
                                 fontSize: 18,
                                 cursor: "pointer",
                                 color: "var(--rhdp-primary, #4da6ff)",
-                                padding: "8px"
+                                padding: showGregorian ? "4px" : "8px"
                             }}
                         >
                             <IoArrowUp />
@@ -411,7 +411,7 @@ const CalendarPopup = ({
                 )}
 
                 <div key={currentHDate.toString()} className={`calendar-days ${transitionDirection === "forward" ? "slide-right" : "slide-left"}`}
-                    style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: showGregorian ? 4 : 6, textAlign: "center" }}>
+                    style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: showGregorian ? 2 : 6, textAlign: "center" }}>
 
                     {daysOfWeek.map((d) => (
                         <div key={d} style={{ fontWeight: "bold", color: "var(--rhdp-primary, #4da6ff)" }}>{d}</div>
@@ -436,8 +436,8 @@ const CalendarPopup = ({
                                 onClick={() => handleSelect(day)}
                                 className={`date-picker-day${isSelected ? " selected" : ""}${dayDisabled ? " disabled" : ""}${showGregorian ? " rhdp-day-dual" : ""}`}
                                 style={{
-                                    minWidth: showGregorian ? 42 : 36,
-                                    minHeight: showGregorian ? 42 : 36,
+                                    minWidth: showGregorian ? 34 : 36,
+                                    minHeight: showGregorian ? 34 : 36,
                                     backgroundColor: dayDisabled
                                         ? 'var(--rhdp-disabled-bg, #f3f4f6)'
                                         : isSelected

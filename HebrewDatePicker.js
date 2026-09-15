@@ -32,6 +32,7 @@ const THEME_VARS = [
 ];
 
 const POPUP_WIDTH = 320;
+const GREGORIAN_POPUP_WIDTH = 280;
 const POPUP_GAP = 8;
 const FALLBACK_POPUP_HEIGHT = 380;
 
@@ -178,7 +179,7 @@ const HebrewDatePicker = ({
         inputRef.current,
         popupRef.current,
         usePortal,
-        showGregorian ? 368 : POPUP_WIDTH,
+        showGregorian ? GREGORIAN_POPUP_WIDTH : POPUP_WIDTH,
       ));
     };
 
