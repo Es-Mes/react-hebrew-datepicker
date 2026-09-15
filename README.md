@@ -40,6 +40,7 @@ Enable it with `showGregorian`. The default stays `false` so existing 1.0 calend
 
 - 📅 **Hebrew Calendar Support** - Full Hebrew calendar with proper month and year calculations
 - ⭐ **Shared Hebrew + Gregorian display (new in 1.1)** — recommended for new forms (`showGregorian`)
+- 📐 **Fits the viewport** - Flips above or below the field; the day grid scrolls if space is still tight
 - 🎨 **CSS variable theming** - Override `--rhdp-primary` without `!important`
 - 🔒 **Form-friendly** - `disabled`, `minDate` / `maxDate`, `isDateDisabled`, hide built-in label
 - 🌐 **RTL by default** - `dir` also applies to the portal popup
@@ -269,7 +270,7 @@ Hide the built-in label when the form already renders one:
 
 Without `minDate` / `maxDate`, the year picker stays at ±30 around the displayed year (same as 1.0.x).
 
-The calendar opens below the field when there is room, and above when there is not. Use `usePortal` inside a Drawer / `overflow: hidden` parent.
+The calendar opens below the field when there is room, and above when there is not. If neither side has enough space, the popup stays in the viewport and the day grid scrolls. Use `usePortal` inside a Drawer / `overflow: hidden` parent.
 
 ## Dependencies / תלויות
 
