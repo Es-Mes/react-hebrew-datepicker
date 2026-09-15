@@ -63,7 +63,7 @@ export interface CalendarPopupProps {
     popupRef: React.RefObject<HTMLDivElement>;
 
     /** Position of the calendar popup */
-    calendarPos: { top?: number | string; bottom?: number | string; left?: number | string };
+    calendarPos: { top?: number | string; bottom?: number | string; left?: number | string; maxHeight?: number };
 
     popupClassName?: string;
     themeStyle?: React.CSSProperties;

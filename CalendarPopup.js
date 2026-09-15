@@ -233,7 +233,7 @@ const CalendarPopup = ({
                     boxShadow: "var(--rhdp-shadow, 0 4px 15px rgba(0,0,0,0.3))",
                     padding: showGregorian ? "10px 12px" : 12,
                     width: showGregorian ? 280 : 272,
-                    maxHeight: "min(90vh, 520px)",
+                    maxHeight: Number.isFinite(calendarPos.maxHeight) ? calendarPos.maxHeight : undefined,
                     overflow: "hidden",
                     boxSizing: "border-box",
                     fontFamily: "var(--rhdp-font, Arial, sans-serif)",
@@ -241,7 +241,7 @@ const CalendarPopup = ({
                     ...themeStyle,
                 }}
             >
-                <div style={{ marginBottom: showGregorian ? 6 : 8, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
+                <div className="rhdp-popup-header" style={{ marginBottom: showGregorian ? 6 : 8, borderBottom: "1px solid var(--rhdp-divider, #eee)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h3
                         style={{ margin: 0, fontSize: 16, color: "var(--rhdp-primary, #4da6ff)", cursor: "pointer" }}
@@ -414,7 +414,7 @@ const CalendarPopup = ({
                     style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: showGregorian ? 2 : 3, textAlign: "center" }}>
 
                     {daysOfWeek.map((d) => (
-                        <div key={d} style={{ fontWeight: "bold", color: "var(--rhdp-primary, #4da6ff)" }}>{d}</div>
+                        <div key={d} className="rhdp-weekday" style={{ fontWeight: "bold", color: "var(--rhdp-primary, #4da6ff)" }}>{d}</div>
                     ))}
                     {daysArray.map((day, i) => {
                         if (!day) return <div key={i} />;

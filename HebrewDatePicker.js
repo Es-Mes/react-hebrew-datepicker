@@ -34,7 +34,9 @@ const THEME_VARS = [
 const POPUP_WIDTH = 272;
 const GREGORIAN_POPUP_WIDTH = 280;
 const POPUP_GAP = 8;
-const FALLBACK_POPUP_HEIGHT = 380;
+const VIEWPORT_MARGIN = 8;
+const MAX_POPUP_HEIGHT = 520;
+const FALLBACK_POPUP_HEIGHT = 360;
 
 const readThemeVars = (element) => {
   if (!element) return {};
@@ -47,19 +49,36 @@ const readThemeVars = (element) => {
   return style;
 };
 
+const measureNaturalHeight = (popupEl) => {
+  if (!popupEl) return FALLBACK_POPUP_HEIGHT;
+  const body = popupEl.querySelector(".rhdp-calendar-body");
+  const header = popupEl.querySelector(".rhdp-popup-header");
+  const footer = popupEl.querySelector(".rhdp-footer-actions");
+  if (!body) return popupEl.scrollHeight || FALLBACK_POPUP_HEIGHT;
+  const styles = getComputedStyle(popupEl);
+  const pad = (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
+  return (header?.offsetHeight || 0) + body.scrollHeight + (footer?.offsetHeight || 0) + pad;
+};
+
 const computeCalendarPosition = (inputEl, popupEl, usePortal, popupWidth = POPUP_WIDTH) => {
   const rect = inputEl.getBoundingClientRect();
-  const height = popupEl?.offsetHeight || FALLBACK_POPUP_HEIGHT;
+  const naturalHeight = measureNaturalHeight(popupEl);
   const spaceBelow = window.innerHeight - rect.bottom;
   const spaceAbove = rect.top;
-  const openAbove = spaceBelow < height + POPUP_GAP && spaceAbove > spaceBelow;
+  const openAbove = spaceBelow < naturalHeight + POPUP_GAP && spaceAbove > spaceBelow;
+  const available = (openAbove ? spaceAbove : spaceBelow) - POPUP_GAP - VIEWPORT_MARGIN;
+  const maxHeight = Math.max(0, Math.min(MAX_POPUP_HEIGHT, available));
 
   if (!usePortal) {
-    return openAbove
-      ? { top: "auto", bottom: `calc(100% + ${POPUP_GAP}px)`, left: 0 }
-      : { top: `calc(100% + ${POPUP_GAP}px)`, bottom: "auto", left: 0 };
+    return {
+      top: openAbove ? "auto" : `calc(100% + ${POPUP_GAP}px)`,
+      bottom: openAbove ? `calc(100% + ${POPUP_GAP}px)` : "auto",
+      left: 0,
+      maxHeight,
+    };
   }
 
+  const visualHeight = Math.min(popupEl?.offsetHeight || naturalHeight, maxHeight || naturalHeight);
   let left = rect.left + window.scrollX + (rect.width - popupWidth) / 2;
   const minLeft = window.scrollX + 10;
   const maxLeft = window.scrollX + window.innerWidth - popupWidth - 10;
@@ -67,10 +86,11 @@ const computeCalendarPosition = (inputEl, popupEl, usePortal, popupWidth = POPUP
 
   return {
     top: openAbove
-      ? rect.top + window.scrollY - height - POPUP_GAP
+      ? rect.top + window.scrollY - visualHeight - POPUP_GAP
       : rect.bottom + window.scrollY + POPUP_GAP,
     bottom: "auto",
     left,
+    maxHeight,
   };
 };
 
@@ -184,11 +204,16 @@ const HebrewDatePicker = ({
     };
 
     updatePosition();
-    const frame = requestAnimationFrame(updatePosition);
+    let frame2;
+    const frame = requestAnimationFrame(() => {
+      updatePosition();
+      frame2 = requestAnimationFrame(updatePosition);
+    });
     window.addEventListener("resize", updatePosition);
     window.addEventListener("scroll", updatePosition, true);
     return () => {
       cancelAnimationFrame(frame);
+      if (frame2) cancelAnimationFrame(frame2);
       window.removeEventListener("resize", updatePosition);
       window.removeEventListener("scroll", updatePosition, true);
     };

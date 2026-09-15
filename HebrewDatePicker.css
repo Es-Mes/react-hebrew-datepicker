@@ -1,5 +1,12 @@
 .calendar-popup {
   z-index: 9999 !important;
+  display: flex;
+  flex-direction: column;
+  max-height: min(90vh, 520px);
+}
+
+.rhdp-popup-header {
+  flex-shrink: 0;
 }
 
 .rhdp-footer-actions {
@@ -7,6 +14,7 @@
   justify-content: space-between;
   gap: 8px;
   margin-top: 8px;
+  flex-shrink: 0;
 }
 
 .rhdp-footer-btn {
@@ -30,11 +38,41 @@
 
 .rhdp-calendar-body {
   position: relative;
-  min-height: 200px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.rhdp-popup-gregorian .rhdp-calendar-body {
-  min-height: 0;
+.rhdp-calendar-body,
+.rhdp-month-year-column {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.14) transparent;
+}
+
+.rhdp-calendar-body::-webkit-scrollbar,
+.rhdp-month-year-column::-webkit-scrollbar {
+  width: 3px;
+}
+
+.rhdp-calendar-body::-webkit-scrollbar-track,
+.rhdp-month-year-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rhdp-calendar-body::-webkit-scrollbar-thumb,
+.rhdp-month-year-column::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 99px;
+}
+
+.rhdp-weekday {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--rhdp-surface, #ffffff);
+  padding: 2px 0 4px;
 }
 
 .rhdp-popup-gregorian .rhdp-footer-actions {
