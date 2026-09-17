@@ -42,7 +42,7 @@ Enable it with `showGregorian`. The default stays `false` so existing 1.0 calend
 - ⭐ **Shared Hebrew + Gregorian display (new in 1.1)** — recommended for new forms (`showGregorian`)
 - 📐 **Fits the viewport** - Flips above or below the field; the day grid scrolls if space is still tight
 - 🎨 **CSS variable theming** - Override `--rhdp-primary` without `!important`
-- 🔒 **Form-friendly** - `disabled`, `minDate` / `maxDate`, `isDateDisabled`, hide built-in label
+- 🔒 **Form-friendly** - `id` for external labels, `allowClear={false}` for required fields, `disabled`, `minDate` / `maxDate`, `isDateDisabled`, hide built-in label
 - 🌐 **RTL by default** - `dir` also applies to the portal popup
 - 🎯 **TypeScript Support** - Definitions include all public props
 - 🎪 **Portal Support** - Optional rendering outside overflow containers
@@ -196,6 +196,8 @@ function UserForm() {
 | Prop             | Type            | Default         | Description                                                                                       |
 | ---------------- | --------------- | --------------- | ------------------------------------------------------------------------------------------------- |
 | `name`           | `string`        | **required**    | The name attribute for the input field                                                            |
+| `id`             | `string`        | `undefined`     | Applied to the focusable input for an external `<label htmlFor>`. Separate from `name`            |
+| `allowClear`     | `boolean`       | `true`          | When `false`, hide and disable the clear action                                                   |
 | `value`          | `string`        | `undefined`     | Current value as ISO `YYYY-MM-DD` (controlled)                                                    |
 | `defaultValue`   | `string`        | `undefined`     | Initial value as ISO `YYYY-MM-DD` (uncontrolled)                                                  |
 | `onChange`       | `function`      | `undefined`     | `(event) => void` — `event.target.value` is ISO `YYYY-MM-DD`                                      |
@@ -262,10 +264,30 @@ Birth date (no future dates; year list follows the range):
 />
 ```
 
-Hide the built-in label when the form already renders one:
+Hide the built-in label when the form already renders one. Pass `id` so the external label can focus the input:
 
 ```jsx
-<HebrewDatePicker name="date" value={date} onChange={onChange} label={null} />
+<label htmlFor="birthDate">תאריך לידה</label>
+<HebrewDatePicker
+  id="birthDate"
+  name="birthDate"
+  value={date}
+  onChange={onChange}
+  label={null}
+/>
+```
+
+Required field that must not be cleared after a date is chosen:
+
+```jsx
+<HebrewDatePicker
+  id="assignment-ended-at"
+  name="assignment-ended-at"
+  label={null}
+  allowClear={false}
+  value={isoDate}
+  onChange={onChange}
+/>
 ```
 
 Without `minDate` / `maxDate`, the year picker stays at ±30 around the displayed year (same as 1.0.x).

@@ -2,6 +2,12 @@ export interface HebrewDatePickerProps {
     /** The name attribute for the input field */
     name: string;
 
+    /** Applied to the focusable input for an external `<label htmlFor>`. Separate from `name`; not generated when omitted. */
+    id?: string;
+
+    /** When false, hide and disable the clear action. Default true. */
+    allowClear?: boolean;
+
     /** The current value as ISO date string (YYYY-MM-DD) */
     value?: string;
 
@@ -97,6 +103,9 @@ export interface CalendarPopupProps {
 
     /** The name attribute for the input field */
     name: string;
+
+    /** When false, the clear button is not rendered. Default true. */
+    allowClear?: boolean;
 
     /** Resolved UI strings */
     labels?: DatePickerLabels;

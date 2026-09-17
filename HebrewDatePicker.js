@@ -96,6 +96,7 @@ const computeCalendarPosition = (inputEl, popupEl, usePortal, popupWidth = POPUP
 
 const HebrewDatePicker = ({
   name,
+  id,
   value,
   defaultValue,
   onChange,
@@ -111,9 +112,11 @@ const HebrewDatePicker = ({
   className,
   popupClassName,
   showGregorian = false,
+  allowClear = true,
 }) => {
   const resolvedLabel = label === undefined ? "בחר תאריך" : label;
   const showLabel = typeof resolvedLabel === "string";
+  const inputId = id ?? name;
   const mergedLabels = { ...DEFAULT_LABELS, ...labels };
   // Support both controlled and uncontrolled modes
   const isControlled = value !== undefined;
@@ -155,6 +158,9 @@ const HebrewDatePicker = ({
   // Internal change handler
   const handleDateChange = (event) => {
     const newValue = event.target.value;
+    if (!allowClear && newValue === "") {
+      return;
+    }
 
     // Update internal state if uncontrolled
     if (!isControlled) {
@@ -231,6 +237,7 @@ const HebrewDatePicker = ({
     transitionDirection,
     setTransitionDirection,
     name,
+    allowClear,
     labels: mergedLabels,
     minDate,
     maxDate,
@@ -249,7 +256,7 @@ const HebrewDatePicker = ({
       dir={dir}
     >
       {showLabel && (
-        <label htmlFor={name} style={{ display: "block", marginBottom: 6 }}>
+        <label htmlFor={inputId} style={{ display: "block", marginBottom: 6 }}>
           {resolvedLabel}{required && " *"}
         </label>
       )}
@@ -257,7 +264,7 @@ const HebrewDatePicker = ({
         <input
           ref={inputRef}
           type="text"
-          id={name}
+          id={inputId}
           name={name}
           readOnly
           required={required}

@@ -132,6 +132,7 @@ const CalendarPopup = ({
     transitionDirection,
     setTransitionDirection,
     name,
+    allowClear = true,
     labels = {},
     minDate,
     maxDate,
@@ -482,16 +483,18 @@ const CalendarPopup = ({
                         {labels.today || "היום"}
                     </button>
 
-                    <button
-                        type="button"
-                        className="rhdp-footer-btn"
-                        onClick={() => {
-                            onChange?.({ target: { name, value: "" } });
-                            setShowCalendar(false);
-                        }}
-                    >
-                        {labels.clear || "נקה"}
-                    </button>
+                    {allowClear && (
+                        <button
+                            type="button"
+                            className="rhdp-footer-btn"
+                            onClick={() => {
+                                onChange?.({ target: { name, value: "" } });
+                                setShowCalendar(false);
+                            }}
+                        >
+                            {labels.clear || "נקה"}
+                        </button>
+                    )}
                 </div>
             </div>
         </>

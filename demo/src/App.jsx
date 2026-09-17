@@ -35,6 +35,7 @@ function App() {
   const [birthDate, setBirthDate] = useState('')
   const [themeDate, setThemeDate] = useState('')
   const [externalLabelDate, setExternalLabelDate] = useState('')
+  const [requiredDate, setRequiredDate] = useState(todayIso)
   const [englishLabelsDate, setEnglishLabelsDate] = useState('')
 
   return (
@@ -128,9 +129,11 @@ function App() {
             </p>
             <div className="demo-container">
               <HebrewDatePicker
+                id="disabledDate"
                 name="disabledDate"
                 defaultValue="2024-01-01"
                 label="תאריך נעול"
+                allowClear={false}
                 disabled
               />
             </div>
@@ -146,10 +149,50 @@ function App() {
                 תאריך מהטופס החיצוני
               </label>
               <HebrewDatePicker
+                id="externalLabelDate"
                 name="externalLabelDate"
                 value={externalLabelDate}
                 onChange={(event) => setExternalLabelDate(event.target.value)}
                 label={null}
+              />
+            </div>
+          </section>
+        </div>
+
+        <div className="demo-grid">
+          <section className="demo-section">
+            <h2>שדה חובה בלי ניקוי</h2>
+            <p>
+              <code>allowClear=&#123;false&#125;</code> מסתיר את «נקה» ולא מאפשר לרוקן תאריך שנבחר.
+            </p>
+            <div className="demo-container">
+              <HebrewDatePicker
+                id="assignment-ended-at"
+                name="assignment-ended-at"
+                value={requiredDate}
+                onChange={(event) => setRequiredDate(event.target.value)}
+                label="תאריך סיום שיבוץ"
+                allowClear={false}
+                required
+              />
+              <SelectedDate value={requiredDate} />
+            </div>
+          </section>
+
+          <section className="demo-section">
+            <h2>בלי ניקוי + labels.clear</h2>
+            <p>
+              גם אם מועבר <code>labels.clear</code>, הפעולה לא מוצגת כש־<code>allowClear=&#123;false&#125;</code>.
+            </p>
+            <div className="demo-container">
+              <HebrewDatePicker
+                id="requiredDateWithClearLabel"
+                name="requiredDateWithClearLabel"
+                value={requiredDate}
+                onChange={(event) => setRequiredDate(event.target.value)}
+                label="תאריך חובה"
+                allowClear={false}
+                labels={{ clear: 'מחק בכל זאת' }}
               />
             </div>
           </section>
@@ -162,6 +205,7 @@ function App() {
           </p>
           <div className="demo-container">
             <HebrewDatePicker
+              id="englishLabelsDate"
               name="englishLabelsDate"
               value={englishLabelsDate}
               onChange={(event) => setEnglishLabelsDate(event.target.value)}
